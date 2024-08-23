@@ -68,8 +68,6 @@ thm a2i(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,p1),imp(p0,p2))
   -| imp(p0,imp(p1,p2))
 } = {
-  mp(imp(imp(p0,p1),imp(p0,p2)), imp(p0,imp(p1,p2)))
-  a2(p0, p1, p2)
 }
 ```
 ```follow
@@ -79,8 +77,6 @@ thm a2ii(prop p0, prop p1, prop p2) {
   -| imp(p0,p2)
   -| imp(p0,imp(p2,p1))
 } = {
-  mp(imp(p0,p1), imp(p0,p2))
-  a2i(p0, p2, p1)
 }
 ```
 
@@ -96,15 +92,11 @@ thm mpd(prop p0, prop p1, prop p2) {
   -| imp(p0, p2)
   -| imp(p0,imp(p2,p1))
 } = {
-  a2ii(p0, p1, p2)
 }
 ```
 
 可以发现，公理 `mp` 的deduction版本就是公理 `a2` 的induction版本。
 这不是一个巧合，公理 `a2` 就是这样逻辑学家人为构造出来的。
-
-
-
 
 ### `Identity`
 
@@ -113,9 +105,6 @@ thm mpd(prop p0, prop p1, prop p2) {
 thm id(prop p0) {
   |- imp(p0, p0)
 } = {
-  mpd(p0, p0, imp(p0,p0))
-  a1(p0, p0)
-  a1(p0, imp(p0,p0))
 }
 ```
 
@@ -124,8 +113,6 @@ thm id(prop p0) {
 thm idd(prop p0, prop p1) {
   |- imp(p0, imp(p1, p1))
 } = {
-  a1i(p0, imp(p1,p1))
-  id(p1)
 }
 ```
 
@@ -135,11 +122,8 @@ thm iid(prop p0, prop p1) {
   |- imp(p0, p1)
   -| imp(p0, imp(p0, p1))
 } = {
-  mpd(p0, p1, p0)
-  id(p0)
 }
 ```
-
 
 ### 三段论 `syllogism` 
 
@@ -154,8 +138,6 @@ thm syl(prop p0, prop p1, prop p2) {
   -| imp(p0, p2)
   -| imp(p2, p1)
 } = {
-  mpd(p0, p1, p2)
-  a1i(p0, imp(p2,p1))
 }
 ```
 
@@ -164,8 +146,6 @@ thm a1id(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, p2))
   -| imp(p0, p2)
 } = {
-  syl(p0, imp(p1,p2), p2)
-  a1(p2, p1)
 }
 ```
 
@@ -174,8 +154,6 @@ thm a2id(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(imp(p1, p2), imp(p1, p3)))
   -| imp(p0, imp(p1, imp(p2, p3)))
 } = {
-  syl(p0, imp(imp(p1,p2),imp(p1,p3)), imp(p1,imp(p2,p3)))
-  a2(p1, p2, p3)
 }
 ```
 
@@ -185,8 +163,6 @@ thm a2iid(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, imp(p1, p3))
   -| imp(p0, imp(p1, imp(p3, p2)))
 } = {
-  mpd(p0, imp(p1,p2), imp(p1,p3))
-  a2id(p0, p1, p3, p2)
 }
 ```
 
@@ -197,9 +173,6 @@ thm com12i(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, p2))
   -| imp(p1, imp(p0, p2))
 } = {
-  syl(p0, imp(p1,p2), imp(p1,p0))
-  a2i(p1, p0, p2)
-  a1(p0, p1)
 }
 ```
 
@@ -207,8 +180,6 @@ thm com12i(prop p0, prop p1, prop p2) {
 thm iidd(prop p0, prop p1) {
   |- imp(p0,imp(imp(p0,p1),p1))
 } = {
-  com12i(p0, imp(p0,p1), p1)
-  id(imp(p0,p1))
 }
 ```
 
@@ -216,11 +187,6 @@ thm iidd(prop p0, prop p1) {
 thm com12(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,imp(p1,p2)), imp(p1,imp(p0,p2)))
 } = {
-  com12i(imp(p0,imp(p1,p2)), p1, imp(p0,p2))
-  a2id(p1, p0, imp(p1,p2), p2)
-  com12i(p1, p0, imp(imp(p1,p2),p2))
-  a1i(p0, imp(p1,imp(imp(p1,p2),p2)))
-  iidd(p1, p2)
 }
 ```
 
@@ -229,8 +195,6 @@ thm com12id(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(p1, imp(p2, p3)))
   -| imp(p0, imp(p2, imp(p1, p3)))
 } = {
-  syl(p0, imp(p1,imp(p2,p3)), imp(p2,imp(p1,p3)))
-  com12(p2, p1, p3)
 }
 ```
 
@@ -240,8 +204,6 @@ thm com12id(prop p0, prop p1, prop p2, prop p3) {
 thm trans.1(prop p0, prop p1, prop p2) {
   |- imp(imp(p1,p2),imp(imp(p0,p1),imp(p0,p2)))
 } = {
-  a2id(imp(p1,p2), p0, p1, p2)
-  a1(imp(p1,p2), p0)
 }
 ```
 
@@ -249,11 +211,8 @@ thm trans.1(prop p0, prop p1, prop p2) {
 thm trans.2(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,p1),imp(imp(p1,p2),imp(p0,p2)))
 } = {
-  com12i(imp(p0,p1), imp(p1,p2), imp(p0,p2))
-  trans.1(p0, p1, p2)
 }
 ```
-
 
 这里有两个名字很像的定理 `trans.1` 和 `trans.2`，两个都是 `imp` 的传递性的体现。`Follow`插件能够提供一个功能，在输入`.`字符时，会搜索并尝试匹配所有相同开头的定理，所以，在后面的使用时，我们只需要输入 `trans.` 就可以了，插件会同时尝试用 `trans.1` 和 `trans.2` 两个定理去证明当前需要证明的目标命题。相当于存在一个定理 `trans`，它有两个输出，一个是 `|- ((p1→p2)→((p0→p1)→(p0→p2)))`，另一个是 `|- ((p0→p1)→((p1→p2)→(p0→p2)))`。
 
@@ -266,9 +225,6 @@ thm syld(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, imp(p1, p3))
   -| imp(p0, imp(p3, p2))
 } = {
-  mpd(p0, imp(p1,p2), imp(p1,p3))
-  syl(p0, imp(imp(p1,p3),imp(p1,p2)), imp(p3,p2))
-  trans.1(p1, p3, p2)
 }
 ```
 
@@ -282,9 +238,6 @@ thm rw2(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, imp(p3, p2))
   -| imp(p1, p3)
 } = {
-  syl(p0, imp(p1,p2), imp(p3,p2))
-  mp(imp(imp(p3,p2),imp(p1,p2)), imp(p1,p3))
-  trans.2(p1, p3, p2)
 }
 ```
 
@@ -294,9 +247,6 @@ thm rw3(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, imp(p1, p3))
   -| imp(p3, p2)
 } = {
-  syl(p0, imp(p1,p2), imp(p1,p3))
-  mp(imp(imp(p1,p3),imp(p1,p2)), imp(p3,p2))
-  trans.1(p1, p3, p2)
 }
 ```
 
@@ -307,8 +257,6 @@ thm rw23(prop p0, prop p1, prop p2, prop p3, prop p4) {
   -| imp(p1, p3)
   -| imp(p4, p2)
 } = {
-  rw2(p0, p1, p2, p3)
-  rw3(p0, p3, p2, p4)
 }
 ```
 
@@ -318,9 +266,6 @@ thm rw23(prop p0, prop p1, prop p2, prop p3, prop p4) {
 thm trans4.1(prop p0, prop p1, prop p2, prop p3) {
   |- imp(imp(p0, p1), imp(imp(p1,p2), imp(imp(p2, p3), imp(p0,p3))))
 } = {
-  rw3(imp(p0,p1), imp(p1,p2), imp(imp(p2,p3),imp(p0,p3)), imp(p0,p2))
-  trans.2(p0, p1, p2)
-  trans.2(p0, p2, p3)
 }
 ```
 
@@ -336,12 +281,6 @@ thm trans4.2(prop p0, prop p1, prop p2, prop p3) {
   |- imp(imp(p2,p3), imp(imp(p0,p1), imp(imp(p1,p2), imp(p0,p3))))
   |- imp(imp(p2,p3), imp(imp(p1,p2), imp(imp(p0,p1), imp(p0,p3))))
 } = {
-  com12id(imp(p2,p3), imp(p1,p2), imp(p0,p1), imp(p0,p3))
-  com12i(imp(p2,p3), imp(p0,p1), imp(imp(p1,p2),imp(p0,p3)))
-  com12id(imp(p1,p2), imp(p2,p3), imp(p0,p1), imp(p0,p3))
-  com12i(imp(p1,p2), imp(p0,p1), imp(imp(p2,p3),imp(p0,p3)))
-  com12id(imp(p0,p1), imp(p2,p3), imp(p1,p2), imp(p0,p3))
-  trans4.1(p0, p1, p2, p3)
 }
 ```
 
