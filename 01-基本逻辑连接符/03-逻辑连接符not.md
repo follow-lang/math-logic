@@ -53,26 +53,34 @@ thm a3i(prop p0, prop p1) {
   |- imp(p0, p1)
   -| imp(not(p1),not(p0))
 } = {
+  mp(imp(p0,p1), imp(not(p1),not(p0)))
+  a3(p1, p0)
 }
 ```
 
 ```follow
-thm a3d(prop p0, prop p1, prop p2) {
+thm a3id(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, p2))
   -| imp(p0, imp(not(p2),not(p1)))
 } = {
+  syl(p0, imp(p1,p2), imp(not(p2),not(p1)))
+  a3(p2, p1)
 }
 ```
 
 ## 反证法 `Contradiction` 
 
-反证法的形式有三种。
+反证法的形式有很多种。这个教程把归谬法和反证法等非常相近的定理都叫做反证法，统一用 `cont` 开头，方便后面的使用。(想要使用反证法，只需要输入 `cont.`，vscode中的follow语言的插件会同时尝试匹配所有 `cont.` 开头的定理，非常方便。)
 
 ```follow
 thm cont.1(prop p0, prop p1) {
   |- imp(not(p0),imp(p0, p1))
   |- imp(p0, imp(not(p0),p1))
 } = {
+  com12i(p0, not(p0), p1)
+  syl(not(p0), imp(p0,p1), imp(not(p1),not(p0)))
+  a3(p1, p0)
+  a1(not(p0), not(p1))
 }
 ```
 
@@ -80,6 +88,10 @@ thm cont.1(prop p0, prop p1) {
 thm cont.2(prop p0) {
   |- imp(imp(not(p0),p0), p0)
 } = {
+  iid(imp(not(p0),p0), p0)
+  a3id(imp(not(p0),p0), imp(not(p0),p0), p0)
+  a2i(not(p0), p0, not(imp(not(p0),p0)))
+  cont.1(p0, not(imp(not(p0),p0)))
 }
 ```
 
@@ -87,6 +99,9 @@ thm cont.2(prop p0) {
 thm notnot.1(prop p0) {
   |- imp(not(not(p0)), p0)
 } = {
+  iid(not(not(p0)), p0)
+  a3id(not(not(p0)), not(not(p0)), p0)
+  cont.1(not(p0), not(not(not(p0))))
 }
 ```
 
@@ -94,6 +109,8 @@ thm notnot.1(prop p0) {
 thm notnot.2(prop p0) {
   |- imp(p0, not(not(p0)))
 } = {
+  a3i(p0, not(not(p0)))
+  notnot.1(not(p0))
 }
   
 ```
@@ -102,6 +119,10 @@ thm notnot.2(prop p0) {
 thm cont.3(prop p0) {
   |- imp(imp(p0, not(p0)), not(p0))
 } = {
+  syl(imp(p0,not(p0)), not(p0), imp(not(not(p0)),not(p0)))
+  cont.2(not(p0))
+  transi.2(not(not(p0)), p0, not(p0))
+  notnot.1(p0)
 }
 ```
 
@@ -111,6 +132,9 @@ thm cont.3(prop p0) {
 thm con.1(prop p0, prop p1) {
   |- imp(imp(not(p0), p1), imp(not(p1), p0))
 } = {
+  a3id(imp(not(p0),p1), not(p1), p0)
+  transi.1(not(p0), p1, not(not(p1)))
+  notnot.2(p1)
 }
 ```
 
@@ -118,6 +142,9 @@ thm con.1(prop p0, prop p1) {
 thm con.2(prop p0, prop p1) {
   |- imp(imp(p0, not(p1)), imp(p1, not(p0)))
 } = {
+  a3id(imp(p0,not(p1)), p1, not(p0))
+  transi.2(not(not(p0)), p0, not(p1))
+  notnot.1(p0)
 }
 ```
 
@@ -125,6 +152,7 @@ thm con.2(prop p0, prop p1) {
 thm con.3(prop p0, prop p1) {
   |- imp(imp(not(p0),not(p1)), imp(p1, p0))
 } = {
+  a3(p0, p1)
 }
 ```
 
@@ -132,6 +160,10 @@ thm con.3(prop p0, prop p1) {
 thm con.4(prop p0, prop p1) {
   |- imp(imp(p0,p1),imp(not(p1),not(p0)))
 } = {
+  syl(imp(p0,p1), imp(not(p1),not(p0)), imp(p0,not(not(p1))))
+  con.2(p0, not(p1))
+  transi.1(p0, p1, not(not(p1)))
+  notnot.2(p1)
 }
 ```
 
@@ -172,7 +204,7 @@ thm coni.4(prop p0, prop p1) {
 ### Deduction
 
 ```follow
-thm cond.1(prop p0, prop p1, prop p2) {
+thm conid.1(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(not(p1), p2))
   -| imp(p0, imp(not(p2), p1))
 } = {
@@ -180,7 +212,7 @@ thm cond.1(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm cond.2(prop p0, prop p1, prop p2) {
+thm conid.2(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, not(p2)))
   -| imp(p0, imp(p2 not(p1)))
 } = {
@@ -188,7 +220,7 @@ thm cond.2(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm cond.3(prop p0, prop p1, prop p2) {
+thm conid.3(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, p2))
   -| imp(p0, imp(not(p2),not(p1)))
 } = {
@@ -196,7 +228,7 @@ thm cond.3(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm cond.4(prop p0, prop p1, prop p2) {
+thm conid.4(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(not(p1),not(p2)))
   -| imp(p0, imp(p2,p1))
 } = {
@@ -210,6 +242,11 @@ thm cont.4(prop p0, prop p1) {
   |- imp(imp(p0,p1), imp(imp(not(p0),p1), p1))
   |- imp(imp(not(p0),p1), imp(imp(p0,p1), p1))
 } = {
+  com12i(imp(not(p0),p1), imp(p0,p1), p1)
+  rw23(imp(p0,p1), imp(not(p0),p1), p1, imp(not(p1),p0), imp(not(p1),p1))
+  con.1(p0, p1)
+  trans.1(not(p1), p0, p1)
+  cont.2(p1)
 }
 ```
 
@@ -218,6 +255,11 @@ thm cont.5(prop p0, prop p1) {
   |- imp(imp(p0,p1), imp(imp(p0,not(p1)), not(p0)))
   |- imp(imp(p0,not(p1)), imp(imp(p0,p1), not(p0)))
 } = {
+  com12i(imp(p0,not(p1)), imp(p0,p1), not(p0))
+  rw23(imp(p0,p1), imp(p0,not(p1)), not(p0), imp(p1,not(p0)), imp(p0,not(p0)))
+  con.2(p0, p1)
+  trans.2(p0, p1, not(p0))
+  cont.3(p0)
 }
 ```
 
@@ -226,8 +268,23 @@ thm cont.6(prop p0, prop p1) {
   |- imp(imp(not(p0),p1), imp(imp(not(p0),not(p1)), p0))
   |- imp(imp(not(p0),not(p1)), imp(imp(not(p0),p1), p0))
 } = {
+  com12i(imp(not(p0),not(p1)), imp(not(p0),p1), p0)
+  rw3(imp(not(p0),p1), imp(not(p0),not(p1)), p0, not(not(p0)))
+  cont.5(not(p0), p1)
+  notnot.1(p0)
 }
 ```
+### 反证法汇总 
+
+| 名称 | 目标命题 |
+| :---: | :---: |
+| `cont.1` | `((¬p0)→(p0→p1))` <br> `(p0→((¬p0)→p1))` |
+| `cont.2` | `(((¬p0)→p0)→p0)` |
+| `cont.3` | `((p0→(¬p0))→(¬p0))` | 
+| `cont.4` | `((p0→p1)→(((¬p0)→p1)→p1))` <br> `(((¬p0)→p1)→((p0→p1)→p1))` |
+| `cont.5` | `((p0→p1)→((p0→(¬p1))→(¬p0)))` <br> `((p0→(¬p1))→((p0→p1)→(¬p0)))` | 
+| `cont.6` | `(((¬p0)→p1)→(((¬p0)→(¬p1))→p0))` <br> `(((¬p0)→(¬p1))→(((¬p0)→p1)→p0))` | 
+
 
 ### Induction
 
@@ -302,7 +359,7 @@ thm contii.6(prop p0, prop p1) {
 ### Deduction 
 
 ```follow
-thm contd.1.1(prop p0, prop p1, prop p2) {
+thm contid.1.1(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(p1, p2))
   -| imp(p0, not(p1))
 } = {
@@ -310,7 +367,7 @@ thm contd.1.1(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm contd.1.2(prop p0, prop p1, prop p2) {
+thm contid.1.2(prop p0, prop p1, prop p2) {
   |- imp(p0, imp(not(p1), p2))
   -| imp(p0, p1)
 } = {

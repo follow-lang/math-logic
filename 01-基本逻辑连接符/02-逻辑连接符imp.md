@@ -219,6 +219,22 @@ thm trans.2(prop p0, prop p1, prop p2) {
 给类似的定理起相同开头的名字，这个技巧在后面会非常有用。
 
 ```follow
+thm transi.1(prop p0, prop p1, prop p2) {
+  |- imp(imp(p0,p1),imp(p0,p2))
+  -| imp(p1,p2)
+} = {
+}
+```
+
+```follow
+thm transi.2(prop p0, prop p1, prop p2) {
+  |- imp(imp(p1,p2),imp(p0,p2))
+  -| imp(p0, p1)
+} = {
+}
+```
+
+```follow
 // syl.deduction
 thm syld(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(p1, p2))
