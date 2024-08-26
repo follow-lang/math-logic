@@ -300,11 +300,3 @@ thm trans4.2(prop p0, prop p1, prop p2, prop p3) {
 }
 ```
 
-
-
-
-
-
-
-
-
