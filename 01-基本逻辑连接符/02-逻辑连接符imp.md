@@ -235,6 +235,26 @@ thm transi.2(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
+thm transid.1(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(imp(p0,p1),imp(p0,p2)))
+  -| imp(p3, imp(p1,p2))
+} = {
+  syl(p3, imp(imp(p0,p1),imp(p0,p2)), imp(p1,p2))
+  trans.1(p0, p1, p2)
+}
+```
+
+```follow
+thm transid.2(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(imp(p1,p2),imp(p0,p2)))
+  -| imp(p3, imp(p0,p1))
+} = {
+  syl(p3, imp(imp(p1,p2),imp(p0,p2)), imp(p0,p1))
+  trans.2(p0, p1, p2)
+}
+```
+
+```follow
 // syl.deduction
 thm syld(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(p1, p2))
