@@ -358,3 +358,37 @@ thm and.not(prop p0) {
 }
 ```
 
+## 复合关系，`imp.andimp`
+
+```follow
+thm imp.andimp.1(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(and(not(p0), not(p2)), and(imp(p0, p1), imp(p2, p3)))
+  |- imp(and(not(p2), not(p0)), and(imp(p0, p1), imp(p2, p3)))
+} = {
+}
+```
+
+```follow
+thm imp.andimp.2(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(and(not(p0), p3), and(imp(p0, p1), imp(p2, p3)))
+  |- imp(and(p3, not(p0)), and(imp(p0, p1), imp(p2, p3)))
+} = {
+}
+```
+
+```follow
+thm imp.andimp.3(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(and(p1, not(p2)), and(imp(p0, p1), imp(p2, p3)))
+  |- imp(and(not(p2), p1), and(imp(p0, p1), imp(p2, p3)))
+} = {
+}
+```
+
+```follow
+thm imp.andimp.4(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(and(p1, p3), and(imp(p0, p1), imp(p2, p3)))
+  |- imp(and(p3, p1), and(imp(p0, p1), imp(p2, p3)))
+} = {
+}
+```
+
