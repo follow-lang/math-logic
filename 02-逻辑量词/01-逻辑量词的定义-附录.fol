@@ -1,0 +1,667 @@
+
+// # `a4.diff.aaa`
+
+thm a4i.diff.aaa.1(set s0, prop p1, prop p2) {
+  |- imp(forall(s0, p1), p2)
+  -| forall(s0, imp(p1, p2)) 
+  diff (s0, p2)
+} = {
+  mp(imp(forall(s0,p1),p2), forall(s0,imp(p1,p2)))
+  a4.diff.aaa(s0, p1, p2)
+}
+
+thm a4i.diff.aaa.2(set s0, prop p1, prop p2) {
+  |- imp(p2, forall(s0, p1))
+  -| forall(s0, imp(p2, p1)) 
+  diff (s0, p2)
+} = {
+  mp(imp(p2,forall(s0,p1)), forall(s0,imp(p2,p1)))
+  a4.diff.aaa(s0, p1, p2)
+}
+
+thm a4i.diff.aaa.iff.1(set s0, prop p1, prop p2) {
+  |- iff(forall(s0, p1), p2)
+  -| forall(s0, iff(p1, p2)) 
+  diff (s0, p2)
+} = {
+  mp(iff(forall(s0,p1),p2), forall(s0,iff(p1,p2)))
+  a4.diff.aaa.iff(s0, p1, p2)
+}
+
+thm a4i.diff.aaa.iff.2(set s0, prop p1, prop p2) {
+  |- iff(p2, forall(s0, p1))
+  -| forall(s0, iff(p2, p1))
+  diff (s0, p2)
+} = {
+  mp(iff(p2,forall(s0,p1)), forall(s0,iff(p2,p1)))
+  a4.diff.aaa.iff(s0, p1, p2)
+}
+
+thm a4id.diff.aaa.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(forall(s0, p1), p2))
+  -| imp(p3, forall(s0, imp(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(forall(s0,p1),p2), forall(s0,imp(p1,p2)))
+  a4.diff.aaa(s0, p1, p2)
+}
+
+thm a4id.diff.aaa.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(p2, forall(s0, p1)))
+  -| imp(p3, forall(s0, imp(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(p2,forall(s0,p1)), forall(s0,imp(p2,p1)))
+  a4.diff.aaa(s0, p1, p2)
+}
+
+thm a4id.diff.aaa.iff.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, iff(forall(s0, p1), p2))
+  -| imp(p3, forall(s0, iff(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, iff(forall(s0,p1),p2), forall(s0,iff(p1,p2)))
+  a4.diff.aaa.iff(s0, p1, p2)
+}
+
+thm a4id.diff.aaa.iff.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, iff(p2, forall(s0, p1)))
+  -| imp(p3, forall(s0, iff(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, iff(p2,forall(s0,p1)), forall(s0,iff(p2,p1)))
+  a4.diff.aaa.iff(s0, p1, p2)
+}
+
+thm a4igen.diff.aaa.1(set s0, prop p1, prop p2) {
+  |- imp(forall(s0, p1), p2)
+  -| imp(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.aaa.1(s0, p1, p2)
+  gen.forall(s0, imp(p1,p2))
+}
+
+thm a4igen.diff.aaa.2(set s0, prop p1, prop p2) {
+  |- imp(p2, forall(s0, p1))
+  -| imp(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.aaa.2(s0, p1, p2)
+  gen.forall(s0, imp(p2,p1))
+}
+
+thm a4igen.diff.aaa.iff.1(set s0, prop p1, prop p2) {
+  |- iff(forall(s0, p1), p2)
+  -| iff(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.aaa.iff.1(s0, p1, p2)
+  gen.forall(s0, iff(p1,p2))
+}
+
+thm a4igen.diff.aaa.iff.2(set s0, prop p1, prop p2) {
+  |- iff(p2, forall(s0, p1))
+  -| iff(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.aaa.iff.2(s0, p1, p2)
+  gen.forall(s0, iff(p2,p1))
+}
+
+// # a4.diff.aee
+
+thm a4i.diff.aee.1(set s0, prop p1, prop p2) {
+  |- imp(exist(s0, p1), p2)
+  -| forall(s0, imp(p1, p2)) 
+  diff (s0, p2)
+} = {
+  mp(imp(exist(s0,p1),p2), forall(s0,imp(p1,p2)))
+  a4.diff.aee(s0, p1, p2)
+}
+
+thm a4i.diff.aee.2(set s0, prop p1, prop p2) {
+  |- imp(p2, exist(s0, p1))
+  -| forall(s0, imp(p2, p1)) 
+  diff (s0, p2)
+} = {
+  mp(imp(p2,exist(s0,p1)), forall(s0,imp(p2,p1)))
+  a4.diff.aee(s0, p1, p2)
+}
+
+thm a4i.diff.aee.iff.1(set s0, prop p1, prop p2) {
+  |- iff(exist(s0, p1), p2)
+  -| forall(s0, iff(p1, p2))
+  diff (s0, p2)
+} = {
+  mp(iff(exist(s0,p1),p2), forall(s0,iff(p1,p2)))
+  a4.diff.aee.iff(s0, p1, p2)
+}
+
+thm a4i.diff.aee.iff.2(set s0, prop p1, prop p2) {
+  |- iff(p2, exist(s0, p1))
+  -| forall(s0, iff(p2, p1))
+  diff (s0, p2)
+} = {
+  mp(iff(p2,exist(s0,p1)), forall(s0,iff(p2,p1)))
+  a4.diff.aee.iff(s0, p1, p2)
+}
+
+thm a4id.diff.aee.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(exist(s0, p1), p2))
+  -| imp(p3, forall(s0, imp(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(exist(s0,p1),p2), forall(s0,imp(p1,p2)))
+  a4.diff.aee(s0, p1, p2)
+}
+
+thm a4id.diff.aee.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(p2, exist(s0, p1)))
+  -| imp(p3, forall(s0, imp(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(p2,exist(s0,p1)), forall(s0,imp(p2,p1)))  
+  a4.diff.aee(s0, p1, p2)
+}
+
+thm a4id.diff.aee.iff.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, iff(exist(s0, p1), p2))
+  -| imp(p3, forall(s0, iff(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, iff(exist(s0,p1),p2), forall(s0,iff(p1,p2)))
+  a4.diff.aee.iff(s0, p1, p2)
+}
+
+thm a4id.diff.aee.iff.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, iff(p2, exist(s0, p1)))
+  -| imp(p3, forall(s0, iff(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, iff(p2,exist(s0,p1)), forall(s0,iff(p2,p1)))
+  a4.diff.aee.iff(s0, p1, p2)
+}
+
+thm a4igen.diff.aee.1(set s0, prop p1, prop p2) {
+  |- imp(exist(s0, p1), p2)
+  -| imp(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.aee.1(s0, p1, p2)
+  gen.forall(s0, imp(p1,p2))
+}
+
+thm a4igen.diff.aee.2(set s0, prop p1, prop p2) {
+  |- imp(p2, exist(s0, p1))
+  -| imp(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.aee.2(s0, p1, p2)
+  gen.forall(s0, imp(p2,p1))
+}
+
+thm a4igen.diff.aee.iff.1(set s0, prop p1, prop p2) {
+  |- iff(exist(s0, p1), p2)
+  -| iff(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.aee.iff.1(s0, p1, p2)
+  gen.forall(s0, iff(p1,p2))
+}
+
+thm a4igen.diff.aee.iff.2(set s0, prop p1, prop p2) {
+  |- iff(p2, exist(s0, p1))
+  -| iff(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.aee.iff.2(s0, p1, p2)
+  gen.forall(s0, iff(p2,p1))
+}
+
+// # `a4.diff.aea` 
+
+thm a4i.diff.aea.1(set s0, prop p1, prop p2) {
+  |- forall(s0, imp(p1, p2))
+  -| imp(exist(s0, p1), p2) 
+  diff (s0, p2)
+} = {
+  mp(forall(s0,imp(p1,p2)), imp(exist(s0,p1),p2))
+  a4.diff.aea.1(s0, p1, p2)
+}
+
+thm a4i.diff.aea.2(set s0, prop p1, prop p2) {
+  |- forall(s0, imp(p2, p1))
+  -| imp(p2, forall(s0, p1)) 
+  diff (s0, p2)
+} = {
+  mp(forall(s0,imp(p2,p1)), imp(p2,forall(s0,p1)))
+  a4.diff.aea.2(s0, p1, p2)
+}
+
+thm a4id.diff.aea.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, forall(s0, imp(p1, p2)))
+  -| imp(p3, imp(exist(s0, p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, forall(s0,imp(p1,p2)), imp(exist(s0,p1),p2))
+  a4.diff.aea.1(s0, p1, p2)
+}
+
+thm a4id.diff.aea.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, forall(s0, imp(p2, p1)))
+  -| imp(p3, imp(p2, forall(s0, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, forall(s0,imp(p2,p1)), imp(p2,forall(s0,p1)))
+  a4.diff.aea.2(s0, p1, p2)
+}
+
+// # `a4.diff.eae` 
+
+thm a4i.diff.eae.1(set s0, prop p1, prop p2) {
+  |- imp(forall(s0, p1), p2)
+  -| exist(s0, imp(p1, p2)) 
+  diff (s0, p2)
+} = {
+  mp(imp(forall(s0,p1),p2), exist(s0,imp(p1,p2)))
+  a4.diff.eae.1(s0, p1, p2)
+}
+
+thm a4i.diff.eae.2(set s0, prop p1, prop p2) {
+  |- imp(p2, exist(s0, p1))
+  -| exist(s0, imp(p2, p1))
+  diff (s0, p2)
+} = {
+  mp(imp(p2,exist(s0,p1)), exist(s0,imp(p2,p1)))
+  a4.diff.eae.1(s0, p1, p2)
+}
+
+thm a4i.diff.eae.3(set s0, prop p1, prop p2) {
+  |- exist(s0, imp(p1, p2))
+  -| imp(forall(s0, p1), p2) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,imp(p1,p2)), imp(forall(s0,p1),p2))
+  a4.diff.eae.2(s0, p1, p2)
+}
+
+thm a4i.diff.eae.4(set s0, prop p1, prop p2) {
+  |- exist(s0, imp(p2, p1))
+  -| imp(p2, exist(s0, p1)) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,imp(p2,p1)), imp(p2,exist(s0,p1)))
+  a4.diff.eae.2(s0, p1, p2)
+}
+
+thm a4id.diff.eae.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(forall(s0, p1), p2))
+  -| imp(p3, exist(s0, imp(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(forall(s0,p1),p2), exist(s0,imp(p1,p2)))
+  a4.diff.eae.1(s0, p1, p2)
+}
+
+thm a4id.diff.eae.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, imp(p2, exist(s0, p1)))
+  -| imp(p3, exist(s0, imp(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, imp(p2,exist(s0,p1)), exist(s0,imp(p2,p1)))
+  a4.diff.eae.1(s0, p1, p2)
+}
+
+thm a4id.diff.eae.3(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, imp(p1, p2)))
+  -| imp(p3, imp(forall(s0, p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,imp(p1,p2)), imp(forall(s0,p1),p2))
+  a4.diff.eae.2(s0, p1, p2)
+}
+
+thm a4id.diff.eae.4(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, imp(p2, p1)))
+  -| imp(p3, imp(p2, exist(s0, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,imp(p2,p1)), imp(p2,exist(s0,p1)))
+  a4.diff.eae.2(s0, p1, p2)
+}
+
+thm a4igen.diff.eae.1(set s0, prop p1, prop p2) {
+  |- imp(forall(s0, p1), p2)
+  -| imp(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.eae.1(s0, p1, p2)
+  gen.exist(s0, imp(p1,p2))
+}
+
+thm a4igen.diff.eae.2(set s0, prop p1, prop p2) {
+  |- imp(p2, exist(s0, p1))
+  -| imp(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.eae.2(s0, p1, p2)
+  gen.exist(s0, imp(p2,p1))
+}
+
+// # `a4.diff.eaa` 
+
+thm a4i.diff.eaa(set s0, prop p1, prop p2) {
+  |- exist(s0, imp(p2, p1))
+  -| imp(p2, forall(s0,p1)) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,imp(p2,p1)), imp(p2,forall(s0,p1)))
+  a4.diff.eaa(s0, p1, p2)
+}
+
+thm a4id.diff.eaa(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, imp(p2, p1)))
+  -| imp(p3, imp(p2, forall(s0,p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,imp(p2,p1)), imp(p2,forall(s0,p1)))
+  a4.diff.eaa(s0, p1, p2)
+}
+
+// # `a4.diff.eee`
+
+thm a4i.diff.eee(set s0, prop p1, prop p2) {
+  |- exist(s0, imp(p1, p2))
+  -| imp(exist(s0,p1), p2)
+  diff (s0, p2)
+} = {
+  mp(exist(s0,imp(p1,p2)), imp(exist(s0,p1),p2))
+  a4.diff.eee(s0, p1, p2)
+}
+
+thm a4id.diff.eee(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, imp(p1, p2)))
+  -| imp(p3, imp(exist(s0,p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,imp(p1,p2)), imp(exist(s0,p1),p2))
+  a4.diff.eee(s0, p1, p2)
+}
+
+// # `a4.diff.and` 
+
+thm a4i.diff.and.1(set s0, prop p1, prop p2) {
+  |- and(forall(s0, p1), p2)
+  -| forall(s0, and(p1, p2)) 
+  diff (s0, p2)
+} = {
+  mp(and(forall(s0,p1),p2), forall(s0,and(p1,p2)))
+  a4.diff.and.1(s0, p1, p2)
+}
+
+thm a4i.diff.and.2(set s0, prop p1, prop p2) {
+  |- and(p2, forall(s0, p1))
+  -| forall(s0, and(p2, p1)) 
+  diff (s0, p2)
+} = {
+  mp(and(p2,forall(s0,p1)), forall(s0,and(p2,p1)))
+  a4.diff.and.1(s0, p1, p2)
+}
+
+thm a4i.diff.and.3(set s0, prop p1, prop p2) {
+  |- and(exist(s0, p1), p2)
+  -| exist(s0, and(p1, p2))
+  diff (s0, p2)
+} = {
+  mp(and(exist(s0,p1),p2), exist(s0,and(p1,p2)))
+  a4.diff.and.2(s0, p1, p2)
+}
+
+thm a4i.diff.and.4(set s0, prop p1, prop p2) {
+  |- and(p2, exist(s0, p1))
+  -| exist(s0, and(p2, p1))
+  diff (s0, p2)
+} = {
+  mp(and(p2,exist(s0,p1)), exist(s0,and(p2,p1)))
+  a4.diff.and.2(s0, p1, p2)
+}
+
+thm a4i.diff.and.5(set s0, prop p1, prop p2) {
+  |- exist(s0, and(p1, p2))
+  -| and(exist(s0, p1), p2) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,and(p1,p2)), and(exist(s0,p1),p2))
+  a4.diff.and.3(s0, p1, p2)
+}
+
+thm a4i.diff.and.6(set s0, prop p1, prop p2) {
+  |- exist(s0, and(p2, p1))
+  -| and(p2, exist(s0, p1))
+  diff (s0, p2)
+} = {
+  mp(exist(s0,and(p2,p1)), and(p2,exist(s0,p1)))
+  a4.diff.and.3(s0, p1, p2)
+}
+
+thm a4id.diff.and.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, and(forall(s0, p1), p2))
+  -| imp(p3, forall(s0, and(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, and(forall(s0,p1),p2), forall(s0,and(p1,p2)))
+  a4.diff.and.1(s0, p1, p2)
+}
+
+thm a4id.diff.and.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, and(p2, forall(s0, p1)))
+  -| imp(p3, forall(s0, and(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, and(p2,forall(s0,p1)), forall(s0,and(p2,p1)))
+  a4.diff.and.1(s0, p1, p2)
+}
+
+thm a4id.diff.and.3(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, and(exist(s0, p1), p2))
+  -| imp(p3, exist(s0, and(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, and(exist(s0,p1),p2), exist(s0,and(p1,p2)))
+  a4.diff.and.2(s0, p1, p2)
+}
+
+thm a4id.diff.and.4(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, and(p2, exist(s0, p1)))
+  -| imp(p3, exist(s0, and(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, and(p2,exist(s0,p1)), exist(s0,and(p2,p1)))
+  a4.diff.and.2(s0, p1, p2)
+}
+
+thm a4id.diff.and.5(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, and(p1, p2)))
+  -| imp(p3, and(exist(s0, p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,and(p1,p2)), and(exist(s0,p1),p2))
+  a4.diff.and.3(s0, p1, p2)
+}
+
+thm a4id.diff.and.6(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, and(p2, p1)))
+  -| imp(p3, and(p2, exist(s0, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,and(p2,p1)), and(p2,exist(s0,p1)))
+  a4.diff.and.3(s0, p1, p2)
+}
+
+
+thm a4igen.diff.and.1(set s0, prop p1, prop p2) {
+  |- and(forall(s0, p1), p2)
+  -| and(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.and.1(s0, p1, p2)
+  gen.forall(s0, and(p1,p2))
+}
+
+thm a4igen.diff.and.2(set s0, prop p1, prop p2) {
+  |- and(p2, forall(s0, p1))
+  -| and(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.and.2(s0, p1, p2)
+  gen.forall(s0, and(p2,p1))
+}
+
+thm a4igen.diff.and.3(set s0, prop p1, prop p2) {
+  |- and(exist(s0, p1), p2)
+  -| and(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.and.3(s0, p1, p2)
+  gen.exist(s0, and(p1,p2))
+}
+
+thm a4igen.diff.and.4(set s0, prop p1, prop p2) {
+  |- and(p2, exist(s0, p1))
+  -| and(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.and.4(s0, p1, p2)
+  gen.exist(s0, and(p2,p1))
+}
+
+// # `a4.diff.or` 
+
+thm a4i.diff.or.1(set s0, prop p1, prop p2) {
+  |- exist(s0, or(p1, p2))
+  -| or(exist(s0, p1), p2) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,or(p1,p2)), or(exist(s0,p1),p2))
+  a4.diff.or.1(s0, p1, p2)
+}
+
+thm a4i.diff.or.2(set s0, prop p1, prop p2) {
+  |- exist(s0, or(p2, p1))
+  -| or(p2, exist(s0, p1)) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,or(p2,p1)), or(p2,exist(s0,p1)))
+  a4.diff.or.1(s0, p1, p2)
+}
+
+thm a4i.diff.or.3(set s0, prop p1, prop p2) {
+  |- or(exist(s0, p1), p2)
+  -| exist(s0, or(p1, p2))
+  diff (s0, p2)
+} = {
+  mp(or(exist(s0,p1),p2), exist(s0,or(p1,p2)))
+  a4.diff.or.2(s0, p1, p2)
+}
+
+thm a4i.diff.or.4(set s0, prop p1, prop p2) {
+  |- or(p2, exist(s0, p1))
+  -| exist(s0, or(p2, p1))
+  diff (s0, p2)
+} = {
+  mp(or(p2,exist(s0,p1)), exist(s0,or(p2,p1)))
+  a4.diff.or.2(s0, p1, p2)
+}
+
+thm a4i.diff.or.5(set s0, prop p1, prop p2) {
+  |- exist(s0, or(p1, p2))
+  -| or(forall(s0, p1), p2) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,or(p1,p2)), or(forall(s0,p1),p2))
+  a4.diff.or.5(s0, p1, p2)
+}
+
+thm a4i.diff.or.6(set s0, prop p1, prop p2) {
+  |- exist(s0, or(p2, p1))
+  -| or(p2, forall(s0, p1)) 
+  diff (s0, p2)
+} = {
+  mp(exist(s0,or(p2,p1)), or(p2,forall(s0,p1)))
+  a4.diff.or.5(s0, p1, p2)
+}
+
+thm a4id.diff.or.1(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, or(p1, p2)))
+  -| imp(p3, or(exist(s0, p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,or(p1,p2)), or(exist(s0,p1),p2))
+  a4.diff.or.1(s0, p1, p2)
+}
+
+thm a4id.diff.or.2(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, or(p2, p1)))
+  -| imp(p3, or(p2, exist(s0, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,or(p2,p1)), or(p2,exist(s0,p1)))
+  a4.diff.or.1(s0, p1, p2)
+}
+
+thm a4id.diff.or.3(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, or(exist(s0, p1), p2))
+  -| imp(p3, exist(s0, or(p1, p2)))
+  diff (s0, p2)
+} = {
+  syl(p3, or(exist(s0,p1),p2), exist(s0,or(p1,p2)))
+  a4.diff.or.2(s0, p1, p2)
+}
+
+thm a4id.diff.or.4(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, or(p2, exist(s0, p1)))
+  -| imp(p3, exist(s0, or(p2, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, or(p2,exist(s0,p1)), exist(s0,or(p2,p1)))
+  a4.diff.or.2(s0, p1, p2)
+}
+
+thm a4id.diff.or.5(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, or(p1, p2)))
+  -| imp(p3, or(forall(s0, p1), p2))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,or(p1,p2)), or(forall(s0,p1),p2))
+  a4.diff.or.5(s0, p1, p2)
+}
+
+thm a4id.diff.or.6(set s0, prop p1, prop p2, prop p3) {
+  |- imp(p3, exist(s0, or(p2, p1)))
+  -| imp(p3, or(p2, forall(s0, p1)))
+  diff (s0, p2)
+} = {
+  syl(p3, exist(s0,or(p2,p1)), or(p2,forall(s0,p1)))
+  a4.diff.or.5(s0, p1, p2)
+}
+
+thm a4igen.diff.or.3(set s0, prop p1, prop p2) {
+  |- or(exist(s0, p1), p2)
+  -| or(p1, p2)
+  diff (s0, p2)
+} = {
+  a4i.diff.or.3(s0, p1, p2)
+  gen.exist(s0, or(p1,p2))
+}
+
+thm a4igen.diff.or.4(set s0, prop p1, prop p2) {
+  |- or(p2, exist(s0, p1))
+  -| or(p2, p1)
+  diff (s0, p2)
+} = {
+  a4i.diff.or.4(s0, p1, p2)
+  gen.exist(s0, or(p2,p1))
+}
+
+

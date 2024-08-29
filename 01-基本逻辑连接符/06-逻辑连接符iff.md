@@ -83,26 +83,6 @@ thm iff.intro.1(prop p0, prop p1) {
 ```
 
 ```follow
-thm iff.intro.2(prop p0, prop p1) {
-  |- imp(p0, imp(p1, iff(p0, p1)))
-  |- imp(p1, imp(p0, iff(p0, p1)))
-  |- imp(and(p0,p1), iff(p0, p1))
-  |- imp(and(p1,p0), iff(p0, p1))
-} = {
-}
-```
-
-```follow
-thm iff.intro.3(prop p0, prop p1) {
-  |- imp(not(p0), imp(not(p1), iff(p0, p1)))
-  |- imp(not(p1), imp(not(p0), iff(p0, p1)))
-  |- imp(and(not(p0),not(p1)), iff(p0, p1))
-  |- imp(and(not(p1),not(p0)), iff(p0, p1))
-} = {
-}
-```
-
-```follow
 thm iff.introii.1(prop p0, prop p1) {
   |- iff(p0, p1)
   -| imp(p0, p1)
@@ -121,6 +101,16 @@ thm iff.introiid.1(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
+thm iff.intro.2(prop p0, prop p1) {
+  |- imp(p0, imp(p1, iff(p0, p1)))
+  |- imp(p1, imp(p0, iff(p0, p1)))
+  |- imp(and(p0,p1), iff(p0, p1))
+  |- imp(and(p1,p0), iff(p0, p1))
+} = {
+}
+```
+
+```follow
 thm iff.introii.2(prop p0, prop p1) {
   |- iff(p0, p1)
   -| p0
@@ -134,6 +124,16 @@ thm iff.introiid.2(prop p0, prop p1, prop p2) {
   |- imp(p0, iff(p1, p2))
   -| imp(p0, p1)
   -| imp(p0, p2)
+} = {
+}
+```
+
+```follow
+thm iff.intro.3(prop p0, prop p1) {
+  |- imp(not(p0), imp(not(p1), iff(p0, p1)))
+  |- imp(not(p1), imp(not(p0), iff(p0, p1)))
+  |- imp(and(not(p0),not(p1)), iff(p0, p1))
+  |- imp(and(not(p1),not(p0)), iff(p0, p1))
 } = {
 }
 ```
@@ -410,8 +410,24 @@ thm imp.iffimp.1(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
+thm imp.iffimpi.1(prop p0, prop p1, prop p2) {
+  |- iff(imp(p0,p1),imp(p0,p2))
+  -| imp(p0,iff(p1,p2)) 
+} = {
+}
+```
+
+```follow
 thm imp.iffimp.2(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,iff(p2,p1)), iff(imp(p0,p1),imp(p0,p2)))
+} = {
+}
+```
+
+```follow
+thm imp.iffimpi.2(prop p0, prop p1, prop p2) {
+  |- iff(imp(p0,p1),imp(p0,p2))
+  -| imp(p0, iff(p1, p2))
 } = {
 }
 ```
@@ -426,37 +442,7 @@ thm imp.iffimp.3(prop p0, prop p1, prop p2, prop p3) {
 ```
 
 ```follow
-thm imp.iffimp.4(prop p0, prop p1, prop p2) {
-  |- imp(iff(p1, p2), iff(imp(p0, p1), imp(p0, p2)))
-} = {
-}
-```
-
-```follow
-thm imp.iffimp.5(prop p0, prop p1, prop p2) {
-  |- imp(iff(p1, p2), iff(imp(p1, p0), imp(p2, p0)))
-} = {
-}
-```
-
-```follow
-thm imp.iffimpi.1(prop p0, prop p1, prop p2) {
-  |- iff(imp(p0,p1),imp(p0,p2))
-  -| imp(p0,iff(p1,p2)) 
-} = {
-}
-```
-
-```follow
-thm imp.iffimpi.2(prop p0, prop p1, prop p2) {
-  |- iff(imp(p0,p1),imp(p0,p2))
-  -| imp(p0, iff(p1, p2))
-} = {
-}
-```
-
-```follow
-thm imp.iffimpi.3(prop p0, prop p1, prop p2, prop p3) {
+thm imp.iffimpii.3(prop p0, prop p1, prop p2, prop p3) {
   |- iff(imp(p0,p1),imp(p2,p3))
   -| iff(p0, p2)
   -| iff(p1, p3)
@@ -465,7 +451,7 @@ thm imp.iffimpi.3(prop p0, prop p1, prop p2, prop p3) {
 ```
 
 ```follow
-thm imp.iffimpd.3(prop p0, prop p1, prop p2, prop p3, prop p4) {
+thm imp.iffimpiid.3(prop p0, prop p1, prop p2, prop p3, prop p4) {
   |- imp(p0, iff(imp(p1,p2),imp(p3,p4)))
   -| imp(p0, iff(p1, p3))
   -| imp(p0, iff(p2, p4))
@@ -473,9 +459,15 @@ thm imp.iffimpd.3(prop p0, prop p1, prop p2, prop p3, prop p4) {
 }
 ```
 
+```follow
+thm imp.iffimp.4(prop p0, prop p1, prop p2) {
+  |- imp(iff(p1, p2), iff(imp(p0, p1), imp(p0, p2)))
+} = {
+}
+```
 
 ```follow
-thm imp.iffimpi.4(prop p0, prop p1, prop p2, prop p3) {
+thm imp.iffimpi.4(prop p0, prop p1, prop p2) {
   |- iff(imp(p0, p1), imp(p0, p2))
   -| iff(p1, p2)
 } = {
@@ -483,9 +475,16 @@ thm imp.iffimpi.4(prop p0, prop p1, prop p2, prop p3) {
 ```
 
 ```follow
-thm imp.iffimpd.4(prop p0, prop p1, prop p2, prop p3, prop p4) {
+thm imp.iffimpd.4(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, iff(imp(p1, p2), imp(p1, p3)))
   -| imp(p0, iff(p2, p3))
+} = {
+}
+```
+
+```follow
+thm imp.iffimp.5(prop p0, prop p1, prop p2) {
+  |- imp(iff(p1, p2), iff(imp(p1, p0), imp(p2, p0)))
 } = {
 }
 ```
@@ -553,7 +552,7 @@ thm iff.2iffiid(prop p0, prop p1, prop p2, prop p3, prop p4) {
 ## 扩展前面的定义和公理  
 
 ```follow
-thm and.def.iff(prop p0, prop p1) {
+thm iff.and.def(prop p0, prop p1) {
   |- iff(and(p0,p1),not(imp(p0,not(p1))))
   |- iff(not(imp(p0,not(p1))), and(p0,p1))
 } = {
@@ -561,7 +560,7 @@ thm and.def.iff(prop p0, prop p1) {
 ```
 
 ```follow
-thm or.def.iff(prop p0, prop p1) {
+thm iff.or.def(prop p0, prop p1) {
   |- iff(or(p0,p1), imp(not(p0),p1))
   |- iff(imp(not(p0),p1), or(p0,p1))
 } = {
@@ -569,14 +568,14 @@ thm or.def.iff(prop p0, prop p1) {
 ```
 
 ```follow
-thm and.com.iff(prop p0, prop p1) {
+thm iff.and.com(prop p0, prop p1) {
   |- iff(and(p0, p1), and(p1, p0))
 } = {
 }
 ```
 
 ```follow
-thm or.com.iff(prop p0, prop p1) {
+thm iff.or.com(prop p0, prop p1) {
   |- iff(or(p0, p1), or(p1, p0))
 } = {
 }
@@ -591,7 +590,7 @@ thm iff.def.iff(prop p0, prop p1) {
 ```
 
 ```follow
-thm notnot.iff(prop p0) {
+thm iff.notnot(prop p0) {
   |- iff(p0, not(not(p0)))
   |- iff(not(not(p0)),p0)
 } = {
@@ -599,7 +598,7 @@ thm notnot.iff(prop p0) {
 ```
 
 ```follow
-thm con.iff(prop p0, prop p1) {
+thm iff.con(prop p0, prop p1) {
   // 第一组
   |- iff(imp(p0, not(p1)), imp(p1, not(p0)))
   |- iff(imp(not(p0), p1), imp(not(p1), p0))
@@ -622,7 +621,71 @@ thm con.iff(prop p0, prop p1) {
 ```
 
 ```follow
-thm mp.iff(prop p0, prop p1, prop p2) {
+thm iff.coni.1(prop p0, prop p1) {
+  |- iff(not(p0), p1)
+  -| iff(not(p1), p0)
+} = {
+}
+```
+
+```follow
+thm iff.coni.2(prop p0, prop p1) {
+  |- iff(p0, not(p1))
+  -| iff(p1, not(p0))
+} = {
+}
+```
+
+```follow
+thm iff.coni.3(prop p0, prop p1) {
+  |- iff(p0, p1)
+  -| iff(not(p1), not(p0))
+} = {
+}
+```
+
+```follow
+thm iff.coni.4(prop p0, prop p1) {
+  |- iff(not(p0), not(p1))
+  -| iff(p1, p0)
+} = {
+}
+```
+
+```follow
+thm iff.conid.1(prop p0, prop p1, prop p2) {
+  |- imp(p0, iff(not(p1), p2))
+  -| imp(p0, iff(not(p2), p1))
+} = {
+}
+```
+
+```follow
+thm iff.conid.2(prop p0, prop p1, prop p2) {
+  |- imp(p0, iff(p1, not(p2)))
+  -| imp(p0, iff(p2, not(p1)))
+} = {
+}
+```
+
+```follow
+thm iff.conid.3(prop p0, prop p1, prop p2) {
+  |- imp(p0, iff(p1, p2))
+  -| imp(p0, iff(not(p2), not(p1)))
+} = {
+}
+```
+
+```follow
+thm iff.conid.4(prop p0, prop p1, prop p2) {
+  |- imp(p0, iff(not(p1), not(p2)))
+  -| imp(p0, iff(p2, p1))
+} = {
+}
+```
+
+```follow
+thm iff.mp(prop p0, prop p1, prop p2) {
   |- iff(p0, p1)
   -| iff(p0, imp(p2, p1))
   -| p2
@@ -631,7 +694,7 @@ thm mp.iff(prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm mp.iff.and(prop p0, prop p1, prop p2) {
+thm iff.mp.and(prop p0, prop p1, prop p2) {
   |- iff(p0, p1)
   -| iff(p0, and(p2, p1))
   -| p2
@@ -711,6 +774,60 @@ thm and.iffandi.3(prop p0, prop p1, prop p2) {
 thm and.iffandid.3(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, iff(and(p2,p1),and(p3,p1)))
   -| imp(p0, imp(p1,iff(p2,p3)))
+} = {
+}
+```
+
+## 复合定理 `and.iff`
+
+```follow
+thm and.iff.1(prop p0, prop p1) {
+  |- imp(p0, iff(and(p0,p1),p1))
+  |- imp(p0, iff(p1, and(p0,p1)))
+} = {
+}
+```
+
+```follow
+thm and.iffi.1(prop p0, prop p1) {
+  |- iff(and(p0,p1),p1)
+  |- iff(p1, and(p0,p1))
+  -| p0
+} = {
+}
+```
+
+```follow
+thm and.iffid.1(prop p0, prop p1, prop p2) {
+  |- imp(p2, iff(and(p0,p1),p1))
+  |- imp(p2, iff(p1, and(p0,p1)))
+  -| imp(p2, p0)
+} = {
+}
+```
+
+```follow
+thm and.iff.2(prop p0, prop p1) {
+  |- imp(p0, iff(and(p1,p0),p1))
+  |- imp(p0, iff(p1, and(p1,p0)))
+} = {
+}
+```
+
+```follow
+thm and.iffi.2(prop p0, prop p1) {
+  |- iff(and(p1,p0),p1)
+  |- iff(p1, and(p1,p0))
+  -| p0
+} = {
+}
+```
+
+```follow
+thm and.iffid.2(prop p0, prop p1, prop p2) {
+  |- imp(p2, iff(and(p1,p0),p1))
+  |- imp(p2, iff(p1, and(p1,p0)))
+  -| imp(p2, p0)
 } = {
 }
 ```
