@@ -1,4 +1,3 @@
-
 # 逻辑连接符 `and` 
 
 **这也需要证明吗？** 是人们学习数理逻辑的时候，经常发出的吐槽。
@@ -50,13 +49,10 @@ axiom and.def.1(prop p0, prop p1) {
 thm and.left(prop p0, prop p1) {
   |- imp(and(p0,p1), p0)
 } = {
-}
-```
-
-```follow
-thm and.right(prop p0, prop p1) {
-  |- imp(and(p0,p1), p1)
-} = {
+  syl(and(p0,p1), p0, not(imp(p0,not(p1))))
+  and.def.1(p0, p1)
+  coni.1(imp(p0,not(p1)), p0)
+  cont.1(p0, not(p1))
 }
 ```
 
@@ -65,22 +61,8 @@ thm and.lefti(prop p0, prop p1) {
   |- p0
   -| and(p0,p1)
 } = {
-}
-```
-
-```follow
-thm and.righti(prop p0, prop p1) {
-  |- p0
-  -| and(p1, p0)
-} = {
-}
-```
-
-```follow
-thm and.rightid(prop p0, prop p1, prop p2) {
-  |- imp(p0, p1)
-  -| imp(p0, and(p2, p1))
-} = {
+  mp(p0, and(p0,p1))
+  and.left(p0, p1)
 }
 ```
 
@@ -89,6 +71,39 @@ thm and.leftid(prop p0, prop p1, prop p2) {
   |- imp(p0, p1)
   -| imp(p0, and(p1,p2))
 } = {
+  syl(p0, p1, and(p1,p2))
+  and.left(p1, p2)
+}
+```
+
+```follow
+thm and.right(prop p0, prop p1) {
+  |- imp(and(p0,p1), p1)
+} = {
+  syl(and(p0,p1), p1, not(imp(p0,not(p1))))
+  and.def.1(p0, p1)
+  coni.1(imp(p0,not(p1)), p1)
+  a1(not(p1), p0)
+}
+```
+
+```follow
+thm and.righti(prop p0, prop p1) {
+  |- p0
+  -| and(p1, p0)
+} = {
+  mp(p0, and(p1,p0))
+  and.right(p1, p0)
+}
+```
+
+```follow
+thm and.rightid(prop p0, prop p1, prop p2) {
+  |- imp(p0, p1)
+  -| imp(p0, and(p2, p1))
+} = {
+  syl(p0, p1, and(p2,p1))
+  and.right(p2, p1)
 }
 ```
 
@@ -99,6 +114,11 @@ thm and.intro(prop p0, prop p1) {
   |- imp(p0, imp(p1, and(p0, p1)))
   |- imp(p1, imp(p0, and(p0, p1)))
 } = {
+  com12i(p1, p0, and(p0,p1))
+  rw3(p0, p1, and(p0,p1), not(imp(p0,not(p1))))
+  and.def.1(p0, p1)
+  conid.2(p0, p1, imp(p0,not(p1)))
+  iidd(p0, not(p1))
 }
 ```
 
@@ -108,6 +128,9 @@ thm and.introii(prop p0, prop p1) {
   -| p0 
   -| p1
 } = {
+  mp(and(p0,p1), p0)
+  mp(imp(p0,and(p0,p1)), p1)
+  and.intro(p0, p1)
 }
 ```
 
@@ -117,6 +140,9 @@ thm and.introiid(prop p0, prop p1, prop p2) {
   -| imp(p0, p1)
   -| imp(p0, p2)
 } = {
+  mpd(p0, and(p1,p2), p1)
+  syl(p0, imp(p1,and(p1,p2)), p2)
+  and.intro(p1, p2)
 }
 ```
 
@@ -126,6 +152,12 @@ thm and.introiid(prop p0, prop p1, prop p2) {
 thm and.com(prop p0, prop p1) {
   |- imp(and(p0, p1), and(p1, p0))
 } = {
+  syl(and(p0,p1), and(p1,p0), not(imp(p0,not(p1))))
+  and.def.1(p0, p1)
+  syl(not(imp(p0,not(p1))), and(p1,p0), not(imp(p1,not(p0))))
+  and.def.1(p1, p0)
+  coni.4(imp(p0,not(p1)), imp(p1,not(p0)))
+  con.2(p1, p0)
 }
 ```
 
@@ -134,6 +166,8 @@ thm and.comi(prop p0, prop p1) {
   |- and(p0, p1)
   -| and(p1, p0)
 } = {
+  mp(and(p0,p1), and(p1,p0))
+  and.com(p1, p0)
 }
 ```
 
@@ -142,6 +176,8 @@ thm and.comid(prop p0, prop p1, prop p2) {
   |- imp(p0, and(p1, p2))
   -| imp(p0, and(p2, p1))
 } = {
+  syl(p0, and(p1,p2), and(p2,p1))
+  and.com(p2, p1)
 }
 ```
 
@@ -154,6 +190,13 @@ thm and.comid(prop p0, prop p1, prop p2) {
 thm and.join(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,imp(p1,p2)), imp(and(p0,p1),p2))
 } = {
+  rw2(imp(p0,imp(p1,p2)), and(p0,p1), p2, not(imp(p0,not(p1))))
+  and.def.1(p0, p1)
+  conid.1(imp(p0,imp(p1,p2)), imp(p0,not(p1)), p2)
+  rw2(imp(p0,imp(p1,p2)), not(p2), imp(p0,not(p1)), imp(imp(p1,p2),not(p1)))
+  trans.2(p0, imp(p1,p2), not(p1))
+  com12i(not(p2), imp(p1,p2), not(p1))
+  con.4(p1, p2)
 }
 ```
 
@@ -162,6 +205,8 @@ thm and.joini(prop p0, prop p1, prop p2) {
   |- imp(and(p0, p1), p2)
   -| imp(p0, imp(p1, p2))
 } = {
+  mp(imp(and(p0,p1),p2), imp(p0,imp(p1,p2)))
+  and.join(p0, p1, p2)
 }
 ```
 
@@ -170,6 +215,8 @@ thm and.joinid(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(and(p1, p2), p3))
   -| imp(p0, imp(p1,imp(p2, p3)))
 } = {
+  syl(p0, imp(and(p1,p2),p3), imp(p1,imp(p2,p3)))
+  and.join(p1, p2, p3)
 }
 ```
 
@@ -179,6 +226,9 @@ thm and.joinid(prop p0, prop p1, prop p2, prop p3) {
 thm and.split(prop p0, prop p1, prop p2) {
   |- imp(imp(and(p0,p1),p2), imp(p0,imp(p1,p2)))
 } = {
+  rw2(imp(and(p0,p1),p2), p0, imp(p1,p2), imp(p1,and(p0,p1)))
+  trans.1(p1, and(p0,p1), p2)
+  and.intro(p0, p1)
 }
 ```
 
@@ -187,6 +237,8 @@ thm and.spliti(prop p0, prop p1, prop p2) {
   |- imp(p0,imp(p1,p2))
   -| imp(and(p0,p1),p2)
 } = {
+  mp(imp(p0,imp(p1,p2)), imp(and(p0,p1),p2))
+  and.split(p0, p1, p2)
 }
 ```
 
@@ -195,6 +247,8 @@ thm and.splitid(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p0, imp(p1,imp(p2, p3)))
   -| imp(p0, imp(and(p1, p2), p3))
 } = {
+  syl(p0, imp(p1,imp(p2,p3)), imp(and(p1,p2),p3))
+  and.split(p1, p2, p3)
 }
 ```
 
@@ -206,6 +260,10 @@ thm and.rw2(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, and(p3, p2))
   -| imp(p3, p1)
 } = {
+  and.introiid(p0, p1, p2)
+  syl(p0, p1, p3)
+  and.leftid(p0, p3, p2)
+  and.rightid(p0, p2, p3)
 }
 ```
 
@@ -215,6 +273,10 @@ thm and.rw3(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0, and(p1, p3))
   -| imp(p3, p2)
 } = {
+  and.introiid(p0, p1, p2)
+  syl(p0, p2, p3)
+  and.leftid(p0, p1, p3)
+  and.rightid(p0, p3, p1)
 }
 ```
 
@@ -225,6 +287,8 @@ thm and.rw23(prop p0, prop p1, prop p2, prop p3, prop p4) {
   -| imp(p3, p1)
   -| imp(p4, p2)
 } = {
+  and.rw2(p0, p1, p2, p3)
+  and.rw3(p0, p3, p2, p4)
 }
 ```
 
@@ -235,6 +299,16 @@ thm and.2and.1(prop p0, prop p1, prop p2, prop p3) {
   |- imp(imp(p0,p1),imp(imp(p2,p3),imp(and(p0,p2),and(p1,p3))))
   |- imp(imp(p2,p3),imp(imp(p0,p1),imp(and(p0,p2),and(p1,p3))))
 } = {
+  com12i(imp(p2,p3), imp(p0,p1), imp(and(p0,p2),and(p1,p3)))
+  and.spliti(imp(p0,p1), imp(p2,p3), imp(and(p0,p2),and(p1,p3)))
+  rw23(and(imp(p0,p1),imp(p2,p3)), and(p0,p2), and(p1,p3), not(imp(p0,not(p2))), not(imp(p1,not(p3))))
+  and.def.1(p0, p2)
+  and.def.1(p1, p3)
+  conid.4(and(imp(p0,p1),imp(p2,p3)), imp(p0,not(p2)), imp(p1,not(p3)))
+  and.joini(imp(p0,p1), imp(p2,p3), imp(imp(p1,not(p3)),imp(p0,not(p2))))
+  rw2(imp(p0,p1), imp(p2,p3), imp(imp(p1,not(p3)),imp(p0,not(p2))), imp(not(p3),not(p2)))
+  trans4.2(p0, p1, not(p3), not(p2))
+  con.4(p2, p3)
 }
 ```
 
@@ -244,6 +318,9 @@ thm and.2andii.1(prop p0, prop p1, prop p2, prop p3) {
   -| imp(p0,p2)
   -| imp(p1,p3)
 } = {
+  mp(imp(and(p0,p1),and(p2,p3)), imp(p0,p2))
+  mp(imp(imp(p0,p2),imp(and(p0,p1),and(p2,p3))), imp(p1,p3))
+  and.2and.1(p0, p2, p1, p3)
 }
 ```
 
@@ -253,6 +330,9 @@ thm and.2andiid.1(prop p0, prop p1, prop p2, prop p3, prop p4) {
   -| imp(p0, imp(p1,p3))
   -| imp(p0, imp(p2,p4))
 } = {
+  mpd(p0, imp(and(p1,p2),and(p3,p4)), imp(p1,p3))
+  syl(p0, imp(imp(p1,p3),imp(and(p1,p2),and(p3,p4))), imp(p2,p4))
+  and.2and.1(p1, p3, p2, p4)
 }
 ```
 
@@ -263,6 +343,15 @@ thm and.2and.2(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,p1),imp(and(p0,p2),and(p2,p1)))
   |- imp(imp(p0,p1),imp(and(p2,p0),and(p1,p2)))
 } = {
+  rw3(imp(p0,p1), and(p0,p2), and(p2,p1), and(p1,p2))
+  and.com(p1, p2)
+  rw3(imp(p0,p1), and(p2,p0), and(p1,p2), and(p2,p1))
+  and.com(p2, p1)
+  mp(imp(imp(p0,p1),imp(and(p0,p2),and(p1,p2))), imp(p2,p2))
+  and.2and.1(p0, p1, p2, p2)
+  mp(imp(imp(p0,p1),imp(and(p2,p0),and(p2,p1))), imp(p2,p2))
+  and.2and.1(p2, p2, p0, p1)
+  id(p2)
 }
 ```
 
@@ -274,6 +363,11 @@ thm and.2andi.2(prop p0, prop p1, prop p2) {
   |- imp(and(p2,p0),and(p1,p2))
   -| imp(p0,p1)
 } = {
+  mp(imp(and(p0,p2),and(p2,p1)), imp(p0,p1))
+  mp(imp(and(p2,p0),and(p1,p2)), imp(p0,p1))
+  mp(imp(and(p0,p2),and(p1,p2)), imp(p0,p1))
+  mp(imp(and(p2,p0),and(p2,p1)), imp(p0,p1))
+  and.2and.2(p0, p1, p2)
 }
 ```
 
@@ -285,6 +379,11 @@ thm and.2andid.2(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p3, imp(and(p2,p0),and(p1,p2)))
   -| imp(p3, imp(p0,p1))
 } = {
+  syl(p3, imp(and(p0,p2),and(p1,p2)), imp(p0,p1))
+  syl(p3, imp(and(p2,p0),and(p2,p1)), imp(p0,p1))
+  syl(p3, imp(and(p0,p2),and(p2,p1)), imp(p0,p1))
+  syl(p3, imp(and(p2,p0),and(p1,p2)), imp(p0,p1))
+  and.2and.2(p0, p1, p2)
 }
 ```
 
@@ -295,6 +394,20 @@ thm and.2and.3(prop p0, prop p1, prop p2) {
   |- imp(imp(p0,imp(p1,p2)),imp(and(p0,p1),and(p2,p0)))
   |- imp(imp(p0,imp(p1,p2)),imp(and(p1,p0),and(p2,p0)))
 } = {
+  rw2(imp(p0,imp(p1,p2)), and(p1,p0), and(p2,p0), and(p0,p1))
+  and.com(p1, p0)
+  rw2(imp(p0,imp(p1,p2)), and(p1,p0), and(p0,p2), and(p0,p1))
+  and.com(p1, p0)
+  rw3(imp(p0,imp(p1,p2)), and(p0,p1), and(p2,p0), and(p0,p2))
+  and.com(p0, p2)
+
+  rw23(imp(p0,imp(p1,p2)), and(p0,p1), and(p0,p2), not(imp(p0,not(p1))), not(imp(p0,not(p2))))
+  and.def.1(p0, p1)
+  and.def.1(p0, p2)
+  conid.4(imp(p0,imp(p1,p2)), imp(p0,not(p1)), imp(p0,not(p2)))
+  a2id(imp(p0,imp(p1,p2)), p0, not(p2), not(p1))
+  transi.1(p0, imp(p1,p2), imp(not(p2),not(p1)))
+  con.4(p1, p2)
 }
 ```
 
@@ -306,6 +419,11 @@ thm and.2andi.3(prop p0, prop p1, prop p2) {
   |- imp(and(p1,p0),and(p2,p0))
   -| imp(p0,imp(p1,p2))
 } = {
+  mp(imp(and(p0,p1),and(p0,p2)), imp(p0,imp(p1,p2)))
+  mp(imp(and(p1,p0),and(p0,p2)), imp(p0,imp(p1,p2)))
+  mp(imp(and(p0,p1),and(p2,p0)), imp(p0,imp(p1,p2)))
+  mp(imp(and(p1,p0),and(p2,p0)), imp(p0,imp(p1,p2)))
+  and.2and.3(p0, p1, p2)
 }
 ```
 
@@ -317,6 +435,11 @@ thm and.2andid.3(prop p0, prop p1, prop p2, prop p3) {
   |- imp(p3, imp(and(p1,p0),and(p2,p0)))
   -| imp(p3, imp(p0,imp(p1,p2)))
 } = {
+  syl(p3, imp(and(p0,p1),and(p0,p2)), imp(p0,imp(p1,p2)))
+  syl(p3, imp(and(p1,p0),and(p0,p2)), imp(p0,imp(p1,p2)))
+  syl(p3, imp(and(p0,p1),and(p2,p0)), imp(p0,imp(p1,p2)))
+  syl(p3, imp(and(p1,p0),and(p2,p0)), imp(p0,imp(p1,p2)))
+  and.2and.3(p0, p1, p2)
 }
 ```
 
@@ -326,6 +449,9 @@ thm and.rw.left(prop p0, prop p1, prop p2) {
   -| and(p2, p1)
   -| imp(p2, p0)
 } = {
+  mp(and(p0,p1), and(p2,p1))
+  and.2andii.1(p2, p1, p0, p1)
+  id(p1)
 }
 ```
 
@@ -335,6 +461,9 @@ thm and.rw.right(prop p0, prop p1, prop p2) {
   -| and(p0, p2)
   -| imp(p2, p1)
 } = {
+  mp(and(p0,p1), and(p0,p2))
+  and.2andii.1(p0, p2, p0, p1)
+  id(p0)
 }
 ```
 
@@ -345,6 +474,25 @@ thm and.syl(prop p0, prop p1, prop p2, prop p3, prop p4) {
   -| imp(p0,imp(p2,p4))
   -| imp(p1,imp(p4,p3))
 } = {
+  syld(and(p0,p1), p2, p3, p4)
+  syl(and(p0,p1), imp(p2,p4), p0)
+  and.left(p0, p1)
+  syl(and(p0,p1), imp(p4,p3), p1)
+  and.right(p0, p1)
+}
+```
+
+```follow
+thm and.2and.2andii(prop p0, prop p1, prop p2, prop p3, prop p4, prop p5) {
+  |- imp(and(p0,p1),imp(and(p2,p3),and(p4,p5)))
+  -| imp(p0,imp(p2,p4))
+  -| imp(p1,imp(p3,p5))
+} = {
+  and.2andiid.1(and(p0,p1), p2, p3, p4, p5)
+  syl(and(p0,p1), imp(p2,p4), p0)
+  and.left(p0, p1)
+  syl(and(p0,p1), imp(p3,p5), p1)
+  and.right(p0, p1)
 }
 ```
 
@@ -355,6 +503,33 @@ thm and.not(prop p0) {
   |- not(and(p0, not(p0)))
   |- not(and(not(p0), p0))
 } = {
+  mp(not(and(not(p0),p0)), not(and(p0,not(p0))))
+  coni.4(and(p0,not(p0)), and(not(p0),p0))
+  and.com(not(p0), p0)
+  mp(not(and(p0,not(p0))), imp(p0,not(not(p0))))
+  coni.2(imp(p0,not(not(p0))), and(p0,not(p0)))
+  and.def.1(p0, not(p0))
+  notnot.2(p0)
+}
+```
+
+## `imp.trans4.3`
+
+```follow
+// trans4 的其他5种可能的形式 
+thm trans4.3(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(and(imp(p0,p1), imp(p2,p3)), imp(imp(p1,p2), imp(p0,p3))))
+  |- imp(and(imp(p1,p2), imp(p0,p1)), imp(imp(p2,p3), imp(p0,p3))))
+  |- imp(and(imp(p1,p2), imp(p2,p3)), imp(imp(p0,p1), imp(p0,p3))))
+  |- imp(and(imp(p2,p3), imp(p0,p1)), imp(imp(p1,p2), imp(p0,p3))))
+  |- imp(and(imp(p2,p3), imp(p1,p2)), imp(imp(p0,p1), imp(p0,p3))))
+} = {
+  and.joini(imp(p0,p1), imp(p2,p3), imp(imp(p1,p2),imp(p0,p3)))
+  and.joini(imp(p1,p2), imp(p0,p1), imp(imp(p2,p3),imp(p0,p3)))
+  and.joini(imp(p1,p2), imp(p2,p3), imp(imp(p0,p1),imp(p0,p3)))
+  and.joini(imp(p2,p3), imp(p0,p1), imp(imp(p1,p2),imp(p0,p3)))
+  and.joini(imp(p2,p3), imp(p1,p2), imp(imp(p0,p1),imp(p0,p3)))
+  trans4.2(p0, p1, p2, p3)
 }
 ```
 
@@ -365,6 +540,11 @@ thm imp.andimp.1(prop p0, prop p1, prop p2, prop p3) {
   |- imp(and(not(p0), not(p2)), and(imp(p0, p1), imp(p2, p3)))
   |- imp(and(not(p2), not(p0)), and(imp(p0, p1), imp(p2, p3)))
 } = {
+  syl(and(not(p2),not(p0)), and(imp(p0,p1),imp(p2,p3)), and(not(p0),not(p2)))
+  and.com(not(p2), not(p0))
+  and.2andii.1(not(p0), not(p2), imp(p0,p1), imp(p2,p3))
+  cont.1(p0, p1)
+  cont.1(p2, p3)
 }
 ```
 
@@ -373,6 +553,11 @@ thm imp.andimp.2(prop p0, prop p1, prop p2, prop p3) {
   |- imp(and(not(p0), p3), and(imp(p0, p1), imp(p2, p3)))
   |- imp(and(p3, not(p0)), and(imp(p0, p1), imp(p2, p3)))
 } = {
+  syl(and(p3,not(p0)), and(imp(p0,p1),imp(p2,p3)), and(not(p0),p3))
+  and.com(p3, not(p0))
+  and.2andii.1(not(p0), p3, imp(p0,p1), imp(p2,p3))
+  cont.1(p0, p1)
+  a1(p3, p2)
 }
 ```
 
@@ -381,6 +566,11 @@ thm imp.andimp.3(prop p0, prop p1, prop p2, prop p3) {
   |- imp(and(p1, not(p2)), and(imp(p0, p1), imp(p2, p3)))
   |- imp(and(not(p2), p1), and(imp(p0, p1), imp(p2, p3)))
 } = {
+  syl(and(not(p2),p1), and(imp(p0,p1),imp(p2,p3)), and(p1,not(p2)))
+  and.com(not(p2), p1)
+  and.2andii.1(p1, not(p2), imp(p0,p1), imp(p2,p3))
+  a1(p1, p0)
+  cont.1(p2, p3)
 }
 ```
 
@@ -389,6 +579,10 @@ thm imp.andimp.4(prop p0, prop p1, prop p2, prop p3) {
   |- imp(and(p1, p3), and(imp(p0, p1), imp(p2, p3)))
   |- imp(and(p3, p1), and(imp(p0, p1), imp(p2, p3)))
 } = {
+  syl(and(p3,p1), and(imp(p0,p1),imp(p2,p3)), and(p1,p3))
+  and.com(p3, p1)
+  and.2andii.1(p1, p3, imp(p0,p1), imp(p2,p3))
+  a1(p1, p0)
+  a1(p3, p2)
 }
 ```
-

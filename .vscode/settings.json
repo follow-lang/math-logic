@@ -3,4 +3,8 @@
         "editor.tabSize": 2,
         "editor.suggest.showWords": false,
     },
+    "[markdown]": {
+        "editor.tabSize": 2,
+        "editor.suggest.showWords": false,
+    }
 }

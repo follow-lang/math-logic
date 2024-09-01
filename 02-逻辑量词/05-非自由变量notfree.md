@@ -227,7 +227,7 @@ thm nf.iffnfi(set s0, prop p0, prop p1) {
 ```
 
 ```follow
-thm nf.iffnfd(set s0, prop p0, prop p1, prop p2) {
+thm nf.iffnfid(set s0, prop p0, prop p1, prop p2) {
   |- imp(p2, iff(nf(s0,p0),nf(s0,p1)))
   |- imp(p2, iff(nf(s0,p1), nf(s0,p0)))
   |- imp(p2, imp(nf(s0,p0),nf(s0,p1)))
@@ -263,6 +263,19 @@ thm nf.rw(set s0, prop p0, prop p1) {
 } = {
   mp(nf(s0,p0), nf(s0,p1))
   nf.iffnfigen(s0, p1, p0)
+}
+```
+
+```follow
+thm nf.rwd(set s0, prop p0, prop p1, prop p2) {
+  |- imp(p2, nf(s0, p0))
+  -| imp(p2, nf(s0, p1))
+  -| iff(p1, p0)
+} = {
+  syl(p2, nf(s0,p0), nf(s0,p1))
+  iff.lefti(nf(s0,p1), nf(s0,p0))
+  nf.iffnfi(s0, p1, p0)
+  gen.forall(s0, iff(p1,p0))
 }
 ```
 
@@ -314,7 +327,9 @@ thm nf.notd(set s0, prop p0, prop p1) {
 ```follow
 thm nf.imp(set s0, prop p0, prop p1) {
   |- imp(and(nf(s0, p0), nf(s0,p1)), nf(s0, imp(p0, p1)))
+  |- imp(nf(s0, p0), imp(nf(s0,p1), nf(s0, imp(p0, p1))))
 } = {
+  and.spliti(nf(s0,p0), nf(s0,p1), nf(s0,imp(p0,p1)))
   syl(and(nf(s0,p0),nf(s0,p1)), nf(s0,imp(p0,p1)), imp(exist(s0,imp(p0,p1)),forall(s0,imp(p0,p1))))
   nf.def.1.ext(s0, imp(p0,p1))
   rw23(and(nf(s0,p0),nf(s0,p1)), exist(s0,imp(p0,p1)), forall(s0,imp(p0,p1)), imp(forall(s0,p0),exist(s0,p1)), imp(exist(s0,p0),forall(s0,p1)))
@@ -342,7 +357,7 @@ thm nf.impii(set s0, prop p0, prop p1) {
 ```
 
 ```follow
-thm nf.impd(set s0, prop p0, prop p1, prop p2) {
+thm nf.impiid(set s0, prop p0, prop p1, prop p2) {
   |- imp(p2, nf(s0, imp(p0, p1)))
   -| imp(p2, nf(s0, p0))
   -| imp(p2, nf(s0,p1))
@@ -372,7 +387,7 @@ thm nf.and(set s0, prop p0, prop p1) {
 ```
 
 ```follow
-thm nf.andi(set s0, prop p0, prop p1) {
+thm nf.andii(set s0, prop p0, prop p1) {
   |- nf(s0, and(p0, p1))
   -| nf(s0, p0)
   -| nf(s0, p1) 
@@ -384,7 +399,7 @@ thm nf.andi(set s0, prop p0, prop p1) {
 ```
 
 ```follow
-thm nf.andd(set s0, prop p0, prop p1, prop p2) {
+thm nf.andiid(set s0, prop p0, prop p1, prop p2) {
   |- imp(p2, nf(s0, and(p0, p1)))
   -| imp(p2, nf(s0, p0))
   -| imp(p2, nf(s0,p1))
@@ -482,7 +497,7 @@ thm nf.iffd(set s0, prop p0, prop p1, prop p2) {
 ## `nf` 与 `eq`
 
 ```follow
-thm nf.eqid(set s0, set s1) {
+thm nf.eq.id(set s0, set s1) {
   |- nf(s0, eq(c(s1), c(s1)))
 } = {
   nf.gen(s0, eq(c(s1),c(s1)))
@@ -490,4 +505,13 @@ thm nf.eqid(set s0, set s1) {
 }
 ```
 
+```follow
+thm nf.eq.com(set s0, set s1, set s2) {
+  |- iff(nf(s0, eq(c(s1),c(s2))),nf(s0, eq(c(s2),c(s1))))
+  |- imp(nf(s0, eq(c(s1),c(s2))),nf(s0, eq(c(s2),c(s1))))
+} = {
+  iff.lefti(nf(s0,eq(c(s1),c(s2))), nf(s0,eq(c(s2),c(s1))))
+  nf.iffnfigen(s0, eq(c(s1),c(s2)), eq(c(s2),c(s1)))
+  eq.com(s1, s2)
+}
 

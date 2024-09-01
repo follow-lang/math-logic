@@ -1,0 +1,41 @@
+
+thm cab.id(prop p0, set s0) {
+  |- iff(in(c(s0), cab(s0, p0)), p0)
+  |- iff(p0, in(c(s0), cab(s0, p0)))
+  |- imp(in(c(s0), cab(s0, p0)), p0)
+  |- imp(p0, in(c(s0), cab(s0, p0)))
+} = {
+  iff.comi(p0, in(c(s0),cab(s0,p0)))
+  iff.lefti(in(c(s0),cab(s0,p0)), p0)
+  iff.righti(p0, in(c(s0),cab(s0,p0)))
+  iff.syl(in(c(s0),cab(s0,p0)), p0, subs(p0,s0,s0))
+  cab.def.1(s0, s0, p0)
+  subs.id(p0, s0)
+}
+
+thm cab.a5.1(prop p0, set s0, set s1) {
+  |- imp(in(c(s1), cab(s0, p0)), forall(s0, in(c(s1), cab(s0, p0))))
+  diff (s0, s1)
+} = {
+  a5.rw(s0, in(c(s1),cab(s0,p0)), subs(p0,s0,s1))
+  cab.def.1(s1, s0, p0)
+  subs.a5(p0, s0, s1)
+}
+
+thm cab.nf.1(prop p0, set s0, set s1) {
+  |- nf(s0, in(c(s1),cab(s0,p0)))
+  diff (s0, s1)
+} = {
+  nf.introigen.2(s0, in(c(s1),cab(s0,p0)))
+  cab.a5.1(p0, s0, s1)
+}
+
+thm cab.a5.2(prop p0, set s0, set s1, set s2) {
+  |- imp(in(c(s1),cab(s0,p0)), forall(s2,in(c(s1),cab(s0,p0))))
+  -| imp(p0, forall(s2, p0))
+  diff (s1, s2)
+} = {
+  a5.rw(s2, in(c(s1),cab(s0,p0)), subs(p0,s0,s1))
+  cab.def.1(s1, s0, p0)
+  subs.forallsubs(p0, s0, s1, s2)
+}
