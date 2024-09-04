@@ -20,7 +20,7 @@ axiom subs.def.1(prop p0, set s0, set s1, set s2) {
 ```
 
 ```follow
-thm subs.def.2(prop p0, set s0, set s1, set s2) {
+thm subs.def.1.ext(prop p0, set s0, set s1, set s2) {
   |- iff(forall(s2, imp(eq(c(s2), c(s1)), forall(s0, imp(eq(c(s0), c(s2)), p0)))), subs(p0, s0, s1))
   |- imp(subs(p0, s0, s1), forall(s2, imp(eq(c(s2), c(s1)), forall(s0, imp(eq(c(s0), c(s2)), p0)))))
   |- imp(forall(s2, imp(eq(c(s2), c(s1)), forall(s0, imp(eq(c(s0), c(s2)), p0)))), subs(p0, s0, s1))
@@ -41,7 +41,7 @@ thm subs.gen(prop p0, set s0, set s1) {
   -| p0
 } = {
   mp(subs(p0,s0,s1), forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))))
-  subs.def.2(p0, s0, s1, hs0)
+  subs.def.1.ext(p0, s0, s1, hs0)
   gen.forall(hs0, imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0))))
   a1i(eq(c(hs0),c(s1)), forall(s0,imp(eq(c(s0),c(hs0)),p0)))
   gen.forall(s0, imp(eq(c(s0),c(hs0)),p0))
@@ -54,7 +54,7 @@ thm subs.forall.special(prop p0, set s0, set s1) {
   |- imp(forall(s0, p0), subs(p0, s0, s1))
 } = {
   syl(forall(s0,p0), subs(p0,s0,s1), forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))))
-  subs.def.2(p0, s0, s1, hs0)
+  subs.def.1.ext(p0, s0, s1, hs0)
   a4igen.diff.aaa.2(hs0, imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0))), forall(s0,p0))
   a1id(forall(s0,p0), eq(c(hs0),c(s1)), forall(s0,imp(eq(c(s0),c(hs0)),p0)))
   a4igen.aaa(s0, p0, imp(eq(c(s0),c(hs0)),p0))
@@ -69,11 +69,11 @@ thm subs.2subs.1(prop p0, prop p1, set s2, set s3) {
   |- imp(subs(imp(p0, p1), s2, s3), imp(subs(p0, s2, s3), subs(p1, s2, s3)))
 } = {
   rw23(subs(imp(p0,p1),s2,s3), subs(p0,s2,s3), subs(p1,s2,s3), forall(hs0,imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0)))), forall(hs0,imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1)))))
-  subs.def.2(p0, s2, s3, hs0)
-  subs.def.2(p1, s2, s3, hs0)
+  subs.def.1.ext(p0, s2, s3, hs0)
+  subs.def.1.ext(p1, s2, s3, hs0)
   a4id.aaa(hs0, imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))), imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1))), subs(imp(p0,p1),s2,s3))
   syl(subs(imp(p0,p1),s2,s3), forall(hs0,imp(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))),imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1))))), forall(hs0,imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),imp(p0,p1))))))
-  subs.def.2(imp(p0,p1), s2, s3, hs0)
+  subs.def.1.ext(imp(p0,p1), s2, s3, hs0)
   a4igen.aaa(hs0, imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),imp(p0,p1)))), imp(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))),imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1)))))
   a2id(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),imp(p0,p1)))), eq(c(hs0),c(s3)), forall(s2,imp(eq(c(s2),c(hs0)),p0)), forall(s2,imp(eq(c(s2),c(hs0)),p1)))
   transi.1(eq(c(hs0),c(s3)), forall(s2,imp(eq(c(s2),c(hs0)),imp(p0,p1))), imp(forall(s2,imp(eq(c(s2),c(hs0)),p0)),forall(s2,imp(eq(c(s2),c(hs0)),p1))))
@@ -146,7 +146,7 @@ thm subs.iffsubs.1(prop p0, prop p1, set s2, set s3) {
   subs.def.1(p1, s2, s3, hs0)
   a4id.aaa.iff(hs0, imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))), imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1))), subs(iff(p0,p1),s2,s3))
   syl(subs(iff(p0,p1),s2,s3), forall(hs0,iff(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))),imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1))))), forall(hs0,imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),iff(p0,p1))))))
-  subs.def.2(iff(p0,p1), s2, s3, hs0)
+  subs.def.1.ext(iff(p0,p1), s2, s3, hs0)
   a4igen.aaa(hs0, imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),iff(p0,p1)))), iff(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))),imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1)))))
   syl(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),iff(p0,p1)))), iff(imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p0))),imp(eq(c(hs0),c(s3)),forall(s2,imp(eq(c(s2),c(hs0)),p1)))), imp(eq(c(hs0),c(s3)),iff(forall(s2,imp(eq(c(s2),c(hs0)),p0)),forall(s2,imp(eq(c(s2),c(hs0)),p1)))))
   imp.iffimp.1(eq(c(hs0),c(s3)), forall(s2,imp(eq(c(s2),c(hs0)),p0)), forall(s2,imp(eq(c(s2),c(hs0)),p1)))
@@ -218,7 +218,7 @@ thm subs.exist(prop p0, set s0, set s1) {
   |- imp(subs(p0, s0, s1), exist(s0, p0))
 } = {
   syl(subs(p0,s0,s1), exist(s0,p0), forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))))
-  subs.def.2(p0, s0, s1, hs0)
+  subs.def.1.ext(p0, s0, s1, hs0)
   syl(forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))), exist(s0,p0), exist(hs0,forall(s0,imp(eq(c(s0),c(hs0)),p0))))
   exist.rw(p0, s0, hs0)
   mpd(forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))), exist(hs0,forall(s0,imp(eq(c(s0),c(hs0)),p0))), exist(hs0,eq(c(hs0),c(s1))))
@@ -235,8 +235,8 @@ thm subs.eq.1(prop p0, set s0, set s1, set s2) {
   |- imp(eq(c(s1), c(s2)), imp(subs(p0, s0, s1), subs(p0, s0, s2)))
 } = {
   rw23(eq(c(s1),c(s2)), subs(p0,s0,s1), subs(p0,s0,s2), forall(hs0,imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))), forall(hs0,imp(eq(c(hs0),c(s2)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))))
-  subs.def.2(p0, s0, s2, hs0)
-  subs.def.2(p0, s0, s1, hs0)
+  subs.def.1.ext(p0, s0, s2, hs0)
+  subs.def.1.ext(p0, s0, s1, hs0)
   a4id.aaa(hs0, imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0))), imp(eq(c(hs0),c(s2)),forall(s0,imp(eq(c(s0),c(hs0)),p0))), eq(c(s1),c(s2)))
   gend(hs0, imp(imp(eq(c(hs0),c(s1)),forall(s0,imp(eq(c(s0),c(hs0)),p0))),imp(eq(c(hs0),c(s2)),forall(s0,imp(eq(c(s0),c(hs0)),p0)))), eq(c(s1),c(s2)))
   transid.2(eq(c(hs0),c(s2)), eq(c(hs0),c(s1)), forall(s0,imp(eq(c(s0),c(hs0)),p0)), eq(c(s1),c(s2)))

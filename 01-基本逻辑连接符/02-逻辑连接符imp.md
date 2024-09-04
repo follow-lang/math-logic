@@ -416,3 +416,16 @@ thm imp.2impiid(prop p0, prop p1, prop p2, prop p3, prop p4) {
   trans4.2(p2, p0, p1, p3)
 }
 ```
+
+## `a2` reversed
+
+```follow
+thm a4.r(prop p0, prop p1, prop p2) {
+  |- imp(imp(imp(p0,p1),imp(p0,p2)), imp(p0, imp(p1, p2)))
+} = {
+  com12id(imp(imp(p0,p1),imp(p0,p2)), p0, p1, p2)
+  rw2(imp(imp(p0,p1),imp(p0,p2)), p1, imp(p0,p2), imp(p0,p1))
+  a1(p1, p0)
+  id(imp(imp(p0,p1),imp(p0,p2)))
+}
+```

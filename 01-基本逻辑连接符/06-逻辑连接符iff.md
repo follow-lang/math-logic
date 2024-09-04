@@ -652,10 +652,50 @@ thm imp.iffimpd.5(prop p0, prop p1, prop p2, prop p3) {
 }
 ```
 
+```follow
+thm imp.iffimp.6(prop p0, prop p1, prop p2) {
+  |- iff(imp(p0, iff(p1, p2)), iff(imp(p0, p1), imp(p0, p2)))
+  |- iff(iff(imp(p0, p1), imp(p0, p2)), imp(p0, iff(p1, p2)))
+  |- imp(imp(p0, iff(p1, p2)), iff(imp(p0, p1), imp(p0, p2)))
+  |- imp(iff(imp(p0, p1), imp(p0, p2)), imp(p0, iff(p1, p2)))
+} = {
+  iff.comi(iff(imp(p0,p1),imp(p0,p2)), imp(p0,iff(p1,p2)))
+  iff.lefti(imp(p0,iff(p1,p2)), iff(imp(p0,p1),imp(p0,p2)))
+  iff.righti(iff(imp(p0,p1),imp(p0,p2)), imp(p0,iff(p1,p2)))
+
+  iff.introii.1(imp(p0,iff(p1,p2)), iff(imp(p0,p1),imp(p0,p2)))
+  imp.iffimp.1(p0, p1, p2)
+
+  and.spliti(iff(imp(p0,p1),imp(p0,p2)), p0, iff(p1,p2))
+  iff.introiid.1(and(iff(imp(p0,p1),imp(p0,p2)),p0), p1, p2)
+  and.joini(iff(imp(p0,p1),imp(p0,p2)), p0, imp(p1,p2))
+  com12id(iff(imp(p0,p1),imp(p0,p2)), p0, p1, p2)
+  rw2(iff(imp(p0,p1),imp(p0,p2)), p1, imp(p0,p2), imp(p0,p1))
+  a1(p1, p0)
+  iff.left(imp(p0,p1), imp(p0,p2))
+
+  and.joini(iff(imp(p0,p1),imp(p0,p2)), p0, imp(p2,p1))
+  com12id(iff(imp(p0,p1),imp(p0,p2)), p0, p2, p1)
+  rw2(iff(imp(p0,p1),imp(p0,p2)), p2, imp(p0,p1), imp(p0,p2))
+  a1(p2, p0)
+  iff.right(imp(p0,p1), imp(p0,p2))
+}
+```
+
+```follow
+thm imp.iffimpi.6(prop p0, prop p1, prop p2) {
+  |- imp(p0, iff(p1, p2)) 
+  -| iff(imp(p0, p1), imp(p0, p2)))
+} = {
+  mp(imp(p0,iff(p1,p2)), iff(imp(p0,p1),imp(p0,p2)))
+  imp.iffimp.6(p0, p1, p2)
+}
+```
+
 ## 复合定理 `iff.2iff`
 
 ```follow
-thm iff.2iff(prop p0, prop p1, prop p2, prop p3) {
+thm iff.2iff.1(prop p0, prop p1, prop p2, prop p3) {
   |- imp(
     imp(imp(p0,p1),imp(p2,p3)),
     imp(imp(imp(p1,p0),imp(p3,p2)),
@@ -689,14 +729,14 @@ thm iff.2iff(prop p0, prop p1, prop p2, prop p3) {
 ```
 
 ```follow
-thm iff.2iffii(prop p0, prop p1, prop p2, prop p3) {
+thm iff.2iffii.1(prop p0, prop p1, prop p2, prop p3) {
   |- imp(iff(p0, p1), iff(p2, p3))
   -| imp(imp(p0,p1),imp(p2,p3))
   -| imp(imp(p1,p0),imp(p3,p2))
 } = {
   mp(imp(iff(p0,p1),iff(p2,p3)), imp(imp(p0,p1),imp(p2,p3)))
   mp(imp(imp(imp(p0,p1),imp(p2,p3)),imp(iff(p0,p1),iff(p2,p3))), imp(imp(p1,p0),imp(p3,p2)))
-  iff.2iff(p0, p1, p2, p3)
+  iff.2iff.1(p0, p1, p2, p3)
 }
 ```
 
@@ -708,7 +748,87 @@ thm iff.2iffiid(prop p0, prop p1, prop p2, prop p3, prop p4) {
 } = {
   mpd(p0, imp(iff(p1,p2),iff(p3,p4)), imp(imp(p1,p2),imp(p3,p4)))
   syl(p0, imp(imp(imp(p1,p2),imp(p3,p4)),imp(iff(p1,p2),iff(p3,p4))), imp(imp(p2,p1),imp(p4,p3)))
-  iff.2iff(p1, p2, p3, p4)
+  iff.2iff.1(p1, p2, p3, p4)
+}
+```
+
+```follow
+thm iff.2iff.2(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(iff(p0,p2), imp(iff(p1,p3), imp(iff(p0, p1), iff(p2, p3))))
+  |- imp(iff(p1,p3), imp(iff(p0,p2), imp(iff(p0, p1), iff(p2, p3))))
+} = {
+  com12i(iff(p1,p3), iff(p0,p2), imp(iff(p0,p1),iff(p2,p3)))
+  com12id(iff(p0,p2), iff(p1,p3), iff(p0,p1), iff(p2,p3))
+  rw3(iff(p0,p2), iff(p0,p1), imp(iff(p1,p3),iff(p2,p3)), iff(p2,p1))
+  iff.trans.1(p2, p1, p3)
+  iff.trans.2(p1, p0, p2)
+}
+```
+
+```follow
+thm iff.2iffii.2(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(iff(p0, p1), iff(p2, p3))
+  -| iff(p0,p2)
+  -| iff(p1,p3)
+} = {
+  mp(imp(iff(p0,p1),iff(p2,p3)), iff(p1,p3))
+  mp(imp(iff(p1,p3),imp(iff(p0,p1),iff(p2,p3))), iff(p0,p2))
+  iff.2iff.2(p0, p1, p2, p3)
+}
+```
+
+```follow
+thm iff.2iffiid.2(prop p0, prop p1, prop p2, prop p3, prop p4) {
+  |- imp(p4, imp(iff(p0, p1), iff(p2, p3)))
+  -| imp(p4, iff(p0,p2))
+  -| imp(p4, iff(p1,p3))
+} = {
+  mpd(p4, imp(iff(p0,p1),iff(p2,p3)), iff(p1,p3))
+  syl(p4, imp(iff(p1,p3),imp(iff(p0,p1),iff(p2,p3))), iff(p0,p2))
+  iff.2iff.2(p0, p1, p2, p3)
+}
+```
+
+```follow
+thm iff.iffiff(prop p0, prop p1, prop p2, prop p3) {
+  |- imp(iff(p0,p2), imp(iff(p1,p3), iff(iff(p0, p1), iff(p2, p3))))
+  |- imp(iff(p1,p3), imp(iff(p0,p2), iff(iff(p0, p1), iff(p2, p3))))
+} = {
+  com12i(iff(p1,p3), iff(p0,p2), iff(iff(p0,p1),iff(p2,p3)))
+  and.spliti(iff(p0,p2), iff(p1,p3), iff(iff(p0,p1),iff(p2,p3)))
+  iff.introiid.1(and(iff(p0,p2),iff(p1,p3)), iff(p0,p1), iff(p2,p3))
+  and.joini(iff(p0,p2), iff(p1,p3), imp(iff(p0,p1),iff(p2,p3)))
+  iff.2iff.2(p0, p1, p2, p3)
+  syl(and(iff(p0,p2),iff(p1,p3)), imp(iff(p2,p3),iff(p0,p1)), and(iff(p2,p0),iff(p3,p1)))
+  and.2andii.1(iff(p0,p2), iff(p1,p3), iff(p2,p0), iff(p3,p1))
+  iff.com(p0, p2)
+  iff.com(p1, p3)
+  and.joini(iff(p2,p0), iff(p3,p1), imp(iff(p2,p3),iff(p0,p1)))
+  iff.2iff.2(p2, p3, p0, p1)
+}
+```
+
+```follow
+thm iff.iffiffi(prop p0, prop p1, prop p2, prop p3) {
+  |- iff(iff(p0, p1), iff(p2, p3))
+  -| iff(p0,p2)
+  -| iff(p1,p3)
+} = {
+  mp(iff(iff(p0,p1),iff(p2,p3)), iff(p0,p2))
+  mp(imp(iff(p0,p2),iff(iff(p0,p1),iff(p2,p3))), iff(p1,p3))
+  iff.iffiff(p0, p1, p2, p3)
+}
+```
+
+```follow
+thm iff.iffiffid(prop p0, prop p1, prop p2, prop p3, prop p4) {
+  |- imp(p4, iff(iff(p0, p1), iff(p2, p3)))
+  -| imp(p4, iff(p0,p2))
+  -| imp(p4, iff(p1,p3))
+} = {
+  mpd(p4, iff(iff(p0,p1),iff(p2,p3)), iff(p0,p2))
+  syl(p4, imp(iff(p0,p2),iff(iff(p0,p1),iff(p2,p3))), iff(p1,p3))
+  iff.iffiff(p0, p1, p2, p3)
 }
 ```
 
@@ -827,10 +947,10 @@ thm iff.con(prop p0, prop p1) {
   iff.comid(iff(p0,p1), not(p0), not(p1))
   iff.comid(iff(not(p0),not(p1)), p0, p1)
 
-  iff.2iffii(p0, not(p1), p1, not(p0))
-  iff.2iffii(not(p0), p1, not(p1), p0)
-  iff.2iffii(p0, p1, not(p1), not(p0))
-  iff.2iffii(not(p0), not(p1), p1, p0)
+  iff.2iffii.1(p0, not(p1), p1, not(p0))
+  iff.2iffii.1(not(p0), p1, not(p1), p0)
+  iff.2iffii.1(p0, p1, not(p1), not(p0))
+  iff.2iffii.1(not(p0), not(p1), p1, p0)
 
   con.1(p1, p0)
   con.1(p0, p1)
