@@ -1050,6 +1050,8 @@ thm neq.class.2(class c0, class c1, class c2) {
 }
 ```
 
+## Subs
+
 ```follow
 thm eq.subs.class(class c0, set s0, set s1) {
   |- iff(subs(eq(c(s0), c0), s0, s1), eq(c(s1),c0))
@@ -1386,7 +1388,7 @@ thm cab.eqcabspid.subs(set s0, set s1, prop p0, prop p1, prop p2) {
 ```
 
 ```follow
-thm cab.class(class c0, set s0) {
+thm cab.id.class(class c0, set s0) {
   |- eq(c0, cab(s0, in(c(s0), c0)))
   |- eq(cab(s0, in(c(s0), c0)), c0)
   diff (c0, s0)
@@ -1431,5 +1433,51 @@ thm cab.eqcab.4(set s0, prop p0, set s1, prop p1) {
   nf.subs.trans(s0, hs0, s1, p0)
   subs.iffsubsigen(subs(p0,s0,s1), p1, s1, hs0)
   nf.subs.a5(s0, s1, p0, p1)
+}
+```
+
+```follow
+thm cab.exist(class c0, set s0, prop p0) {
+  |- iff(in(c0, cab(s0, p0)), exist(s0, and(eq(c(s0),c0), p0)))
+  diff (s0, c0)
+} = {
+  iff.syl(in(c0,cab(s0,p0)), exist(s0,and(eq(c(s0),c0),p0)), exist(hs0,and(eq(c(hs0),c0),in(c(hs0),cab(s0,p0)))))
+  in.def(c0, cab(s0,p0), hs0)
+  nf.eq.exist.iff.1(hs0, s0, and(eq(c(hs0),c0),in(c(hs0),cab(s0,p0))), and(eq(c(s0),c0),p0))
+  nf.diff(hs0, and(eq(c(s0),c0),p0))
+  nf.andii(s0, eq(c(hs0),c0), in(c(hs0),cab(s0,p0)))
+  nf.diff(s0, eq(c(hs0),c0))
+  cab.nf.1(p0, s0, hs0)
+  and.iffandiid.1(eq(c(hs0),c(s0)), eq(c(hs0),c0), eq(c(s0),c0), in(c(hs0),cab(s0,p0)), p0)
+  eq.trans.class.iff.1(c(hs0), c(s0), c0)
+  iff.rw2(eq(c(hs0),c(s0)), in(c(hs0),cab(s0,p0)), p0, subs(p0,s0,hs0))
+  cab.def.1(hs0, s0, p0)
+  subs.eq.5(p0, hs0, s0)
+}
+```
+
+```follow
+thm cab.inclass(set s0, prop p0, class c0, set s1) {
+  |- iff(in(cab(s0,p0),c0), exist(s1, and(in(c(s1),c0), forall(s0, iff(in(c(s0),c(s1)), p0)))))
+  diff (s1, s0) (s1, p0) (s1, c0)
+} = {
+  iff.syl(in(cab(s0,p0),c0), exist(s1,and(in(c(s1),c0),forall(s0,iff(in(c(s0),c(s1)),p0)))), exist(s1,and(eq(c(s1),cab(s0,p0)),in(c(s1),c0))))
+  in.def(cab(s0,p0), c0, s1)
+  a4igen.aee.iff(s1, and(eq(c(s1),cab(s0,p0)),in(c(s1),c0)), and(in(c(s1),c0),forall(s0,iff(in(c(s0),c(s1)),p0))))
+  iff.syl(and(eq(c(s1),cab(s0,p0)),in(c(s1),c0)), and(in(c(s1),c0),forall(s0,iff(in(c(s0),c(s1)),p0))), and(in(c(s1),c0),eq(c(s1),cab(s0,p0))))
+  iff.and.com(eq(c(s1),cab(s0,p0)), in(c(s1),c0))
+  and.iffandii.1(in(c(s1),c0), in(c(s1),c0), eq(c(s1),cab(s0,p0)), forall(s0,iff(in(c(s0),c(s1)),p0)))
+  iff.id(in(c(s1),c0))
+  cab.eq.forall.1(s0, c(s1), p0)
+}
+```
+
+```follow
+thm cab.usesubs(set s0, set s1, class c0, set s2) {
+  |- imp(eq(c(s0),c(s1)), eq(c0, cab(s2, subs(in(c(s2), c0), s0, s1))))
+  diff (s2, s0) (s2, s1) (s2, c0)
+} = {
+  cab.eq.foralligend.2(s2, c0, subs(in(c(s2),c0),s0,s1), eq(c(s0),c(s1)))
+  subs.eq.5(in(c(s2),c0), s0, s1)
 }
 ```
