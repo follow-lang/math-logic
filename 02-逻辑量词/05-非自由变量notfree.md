@@ -483,7 +483,7 @@ thm nf.iffii(set s0, prop p0, prop p1) {
 ```
 
 ```follow
-thm nf.iffd(set s0, prop p0, prop p1, prop p2) {
+thm nf.iffiid(set s0, prop p0, prop p1, prop p2) {
   |- imp(p2, nf(s0, iff(p0, p1)))
   -| imp(p2, nf(s0, p0))
   -| imp(p2, nf(s0, p1))
