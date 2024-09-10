@@ -18,8 +18,10 @@
         "02-逻辑量词/08-替换公理a12.md",
         "02-逻辑量词/08-替换公理a12.fol",
         "02-逻辑量词/09-量化等价a13.md",
+        "02-逻辑量词/10-条件量词.md",
         "03-ZF集合论/01-Extension.md",
         "03-ZF集合论/02-ClassAbstraction.md",
-        "03-ZF集合论/03-ClassNotFree.md"
+        "03-ZF集合论/03-ClassNotFree.md",
+        "03-ZF集合论/04-条件量词.md"
     ]
 }

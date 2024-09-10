@@ -248,6 +248,23 @@ thm iff.iid.2(prop p0, prop p1) {
 }
 ```
 
+```follow
+thm iff.iidd(prop p0, prop p1) {
+  |- imp(p0, iff(imp(p0,p1), p1))
+  |- imp(p0, iff(p1, imp(p0,p1)))
+  |- imp(p0, imp(imp(p0,p1), p1))
+  |- imp(p0, imp(p1, imp(p0,p1)))
+}= {
+  iff.comid(p0, p1, imp(p0,p1))
+  iff.leftid(p0, imp(p0,p1), p1)
+  iff.rightid(p0, p1, imp(p0,p1))
+  iff.introiid.1(p0, imp(p0,p1), p1)
+  iidd(p0, p1)
+  a1i(p0, imp(p1,imp(p0,p1)))
+  a1(p1, p0)
+}
+```
+
 ## 传递性 `Transition`
 
 ```follow
@@ -1296,6 +1313,50 @@ thm and.iffid.2(prop p0, prop p1, prop p2) {
 }
 ```
 
+```follow
+thm and.iff.3(prop p0, prop p1) {
+  |- iff(imp(p0,p1), iff(p0,and(p0,p1)))
+  |- iff(iff(p0,and(p0,p1)), imp(p0,p1))
+  |- imp(imp(p0,p1), iff(p0,and(p0,p1)))
+  |- imp(iff(p0,and(p0,p1)), imp(p0,p1))
+} = {
+  iff.comi(iff(p0,and(p0,p1)), imp(p0,p1))
+  iff.lefti(imp(p0,p1), iff(p0,and(p0,p1)))
+  iff.righti(iff(p0,and(p0,p1)), imp(p0,p1))
+  iff.introii.1(imp(p0,p1), iff(p0,and(p0,p1)))
+  iff.introiid.1(imp(p0,p1), p0, and(p0,p1))
+  a2i(p0, p1, and(p0,p1))
+  and.intro(p0, p1)
+  a1i(imp(p0,p1), imp(and(p0,p1),p0))
+  and.left(p0, p1)
+  syl(iff(p0,and(p0,p1)), imp(p0,p1), imp(p0,and(p0,p1)))
+  iff.left(p0, and(p0,p1))
+  transi.1(p0, and(p0,p1), p1)
+  and.right(p0, p1)
+}
+```
+
+```follow
+thm and.iffi.3(prop p0, prop p1) {
+  |- iff(p0,and(p0,p1))
+  -| imp(p0,p1)
+} = {
+  mp(iff(p0,and(p0,p1)), imp(p0,p1))
+  and.iff.3(p0, p1)
+}
+```
+
+```follow
+thm and.iffid.3(prop p0, prop p1, prop p2) {
+  |- imp(p2, iff(p0,and(p0,p1)))
+  -| imp(p2, imp(p0,p1))
+} = {
+  syl(p2, iff(p0,and(p0,p1)), imp(p0,p1))
+  and.iff.3(p0, p1)
+}
+```
+
+
 ## 复合定理 `or.iffor` 
 
 ```follow
@@ -1486,5 +1547,59 @@ thm not.and.4(prop p0, prop p1) {
   mp(iff(not(and(not(p0),not(p1))),or(p0,p1)), iff(not(or(p0,p1)),and(not(p0),not(p1))))
   iff.con(or(p0,p1), and(not(p0),not(p1)))
   not.or.1(p0, p1)
+}
+```
+
+## `iff` 转化
+
+```follow
+thm iff.split(prop p0, prop p1) {
+  |- iff(p0, p1)
+  |- imp(p0, p1)
+  |- imp(p1, p0)
+  -| iff(p1, p0)
+} = {
+  iff.comi(p0, p1)
+  iff.righti(p0, p1)
+  iff.lefti(p1, p0)
+}
+```
+
+```follow
+thm iff.splitd(prop p0, prop p1, prop p2) {
+  |- imp(p2, iff(p0, p1))
+  |- imp(p2, imp(p0, p1))
+  |- imp(p2, imp(p1, p0))
+  -| imp(p2, iff(p1, p0))
+} = {
+  iff.comid(p2, p0, p1)
+  iff.rightid(p2, p0, p1)
+  iff.leftid(p2, p1, p0)
+}
+```
+
+```follow
+thm iff.and.rw2(prop p0, prop p1, prop p2, prop p3) {
+  |- iff(p0, and(p1, p2))
+  -| iff(p0, and(p3, p2))
+  -| iff(p1, p3)
+} = {
+  iff.syl(p0, and(p1,p2), and(p3,p2))
+  and.iffandii.1(p3, p1, p2, p2)
+  iff.id(p2)
+  iff.comi(p3, p1)
+}
+```
+
+```follow
+thm iff.and.rw3(prop p0, prop p1, prop p2, prop p3) {
+  |- iff(p0, and(p1, p2))
+  -| iff(p0, and(p1, p3))
+  -| iff(p2, p3)
+} = {
+  iff.syl(p0, and(p1,p2), and(p1,p3))
+  and.iffandii.1(p1, p1, p3, p2)
+  iff.id(p1)
+  iff.comi(p3, p2)
 }
 ```
