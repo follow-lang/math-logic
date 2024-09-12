@@ -1282,7 +1282,7 @@ thm cab.eqcab(set s0, prop p0, prop p1) {
   nf.a5(in(c(hs0),cab(s0,p1)), s0)
   cab.nf.1(p1, s0, hs0)
   a4igen.aaa.iff(s0, iff(p0,p1), iff(in(c(s0),cab(s0,p0)),in(c(s0),cab(s0,p1))))
-  iff.iffiffi(p0, p1, in(c(s0),cab(s0,p0)), in(c(s0),cab(s0,p1)))
+  iff.iffiffii(p0, p1, in(c(s0),cab(s0,p0)), in(c(s0),cab(s0,p1)))
   cab.id(p0, s0)
   cab.id(p1, s0)
 }
