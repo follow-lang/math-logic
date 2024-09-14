@@ -199,7 +199,7 @@ thm subs.iffsubsigen(prop p0, prop p1, set s2, set s3) {
 ```
 
 ```follow
-thm subs.iffsubsi.gend(prop p0, prop p1, prop p2, set s3, set s4, prop p3) {
+thm subs.iffsubsi.gend(prop p0, prop p1, prop p2, set s3, set s4) {
   |- imp(p0, iff(subs(p1, s3, s4), subs(p2, s3, s4)))
   -| imp(p0, iff(p1, p2))
   diff (p0, s3)

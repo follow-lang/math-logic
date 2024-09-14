@@ -1665,3 +1665,24 @@ thm iff.and.rw3(prop p0, prop p1, prop p2, prop p3) {
   iff.comi(p3, p2)
 }
 ```
+
+```follow
+thm iff.imp.and(prop p0, prop p1, prop p2) {
+  |- iff(and(imp(p0,p1),imp(p0,p2)), imp(p0,and(p1,p2)))
+  |- iff(imp(p0,and(p1,p2)), and(imp(p0,p1),imp(p0,p2)))
+  |- imp(and(imp(p0,p1),imp(p0,p2)), imp(p0,and(p1,p2)))
+  |- imp(imp(p0,and(p1,p2)), and(imp(p0,p1),imp(p0,p2)))
+} = {
+  iff.split(imp(p0,and(p1,p2)), and(imp(p0,p1),imp(p0,p2)))
+  iff.introii.1(and(imp(p0,p1),imp(p0,p2)), imp(p0,and(p1,p2)))
+  and.joini(imp(p0,p1), imp(p0,p2), imp(p0,and(p1,p2)))
+  a2id(imp(p0,p1), p0, p2, and(p1,p2))
+  transi.1(p0, p1, imp(p2,and(p1,p2)))
+  and.intro(p1, p2)
+  and.introiid(imp(p0,and(p1,p2)), imp(p0,p1), imp(p0,p2))
+  transi.1(p0, and(p1,p2), p1)
+  and.left(p1, p2)
+  transi.1(p0, and(p1,p2), p2)
+  and.right(p1, p2)
+}
+```
