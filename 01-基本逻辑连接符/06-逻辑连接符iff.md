@@ -1686,3 +1686,13 @@ thm iff.imp.and(prop p0, prop p1, prop p2) {
   and.right(p1, p2)
 }
 ```
+
+```follow
+thm iff.com12(prop p0, prop p1, prop p2) {
+  |- iff(imp(p0,imp(p1,p2)), imp(p1,imp(p0,p2)))
+} = {
+  iff.introii.1(imp(p0,imp(p1,p2)), imp(p1,imp(p0,p2)))
+  com12(p0, p1, p2)
+  com12(p1, p0, p2)
+}
+```
